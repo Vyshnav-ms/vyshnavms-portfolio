@@ -1,0 +1,42 @@
+export const projects = [
+  {
+    title: "Lumos Learning App",
+    description: "An interactive learning platform with personalized course recommendations and progress tracking.",
+    tech: ["React", "Django", "PostgreSQL", "REST API"],
+    image: "/placeholder.svg",
+    github: "#",
+    live: "#",
+  },
+  {
+    title: "IncubateX",
+    description: "Startup incubator platform connecting entrepreneurs with mentors and investors.",
+    tech: ["React", "Node.js", "MongoDB", "Socket.io"],
+    image: "/placeholder.svg",
+    github: "#",
+    live: "#",
+  },
+  {
+    title: "MentalPal",
+    description: "Mental health companion app with AI-powered mood tracking and recommendations.",
+    tech: ["React", "Python", "OpenAI API", "NLP"],
+    image: "/placeholder.svg",
+    github: "#",
+    live: "#",
+  },
+  {
+    title: "International Admissions Page",
+    description: "Comprehensive admissions portal for international students with document management.",
+    tech: ["React", "Django", "AWS S3", "Tailwind"],
+    image: "/placeholder.svg",
+    github: "#",
+    live: "#",
+  },
+  {
+    title: "Personal Finance Tracker",
+    description: "Smart budgeting app with expense categorization and financial insights.",
+    tech: ["React", "Django", "Chart.js", "SQLite"],
+    image: "/placeholder.svg",
+    github: "#",
+    live: "#",
+  },
+];

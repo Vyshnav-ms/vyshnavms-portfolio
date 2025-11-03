@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Black & Red Precision Portfolio Design System */
+    --background: 0 0% 4.3%; /* Jet Black #0B0B0B */
+    --foreground: 0 0% 92%; /* Off White #EAEAEA */
+
+    --card: 0 0% 4.3%;
+    --card-foreground: 0 0% 92%;
+
+    --popover: 0 0% 4.3%;
+    --popover-foreground: 0 0% 92%;
+
+    --primary: 0 100% 38%; /* Deep Red #C00000 */
+    --primary-foreground: 0 0% 92%;
+
+    --secondary: 0 0% 16.5%; /* Divider #2A2A2A */
+    --secondary-foreground: 0 0% 92%;
+
+    --muted: 0 0% 16.5%;
+    --muted-foreground: 0 0% 60%;
+
+    --accent: 0 100% 38%;
+    --accent-foreground: 0 0% 92%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 92%;
+
+    --border: 0 0% 16.5%;
+    --input: 0 0% 16.5%;
+    --ring: 0 100% 38%;
+
+    --radius: 0.5rem;
+
+    /* Custom tokens */
+    --glare: 0 0% 100% / 0.1; /* White glare overlay */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
