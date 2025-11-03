@@ -4,7 +4,7 @@ const Footer = () => {
   const socialLinks = [
     { icon: Github, href: "https://github.com/Vyshnav-ms", label: "GitHub" },
     { icon: Linkedin, href: "https://linkedin.com/in/vyshnav-m-s", label: "LinkedIn" },
-    { icon: Mail, href: "mailto:khureshigaming@gmail.com", label: "Email" },
+    { icon: Mail, href: "mailto:vyshnams1@gmail.com", label: "Email" },
   ];
 
   return (
@@ -12,7 +12,7 @@ const Footer = () => {
       <div className="container mx-auto px-6 py-8">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="font-inter text-sm text-muted-foreground">
-            © 2025 Vyshnav M S · Built with React + Vite
+           © 2025 Vyshnav M S · All rights reserved · Built with React + Vite
           </p>
 
           <div className="flex gap-6">

@@ -1,47 +1,50 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useRef, useState } from "react";
-import { Mail, Github, Linkedin, Phone } from "lucide-react";
-import { Button } from "./ui/button-custom";
+import { useRef } from "react";
+import { Mail, Github, Linkedin } from "lucide-react";
 import { toast } from "sonner";
+import { SiWhatsapp } from "react-icons/si"; // ✅ WhatsApp icon
 
 const Contact = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    toast.success("Message sent successfully! I'll get back to you soon.");
-    setFormData({ name: "", email: "", message: "" });
-  };
-
-  const contactInfo = [
+  const contactLinks = [
     {
       icon: Mail,
       label: "Email",
-      value: "khureshigaming@gmail.com",
-      href: "mailto:khureshigaming@gmail.com",
+      value: "vyshnams1@gmail.com",
+      href: "mailto:vyshnams1@gmail.com",
+      description: "Let's talk about your next big idea!",
     },
     {
       icon: Github,
       label: "GitHub",
       value: "github.com/Vyshnav-ms",
       href: "https://github.com/Vyshnav-ms",
+      description: "Check out my latest open-source work.",
     },
     {
       icon: Linkedin,
       label: "LinkedIn",
       value: "linkedin.com/in/vyshnav-m-s",
       href: "https://linkedin.com/in/vyshnav-m-s",
+      description: "Let's grow our professional network.",
     },
     {
-      icon: Phone,
-      label: "Phone",
+      icon: SiWhatsapp,
+      label: "WhatsApp",
       value: "+91 8547776976",
-      href: "tel:+918547776976",
+      href: "https://wa.me/918547776976",
+      description: "Message me directly on WhatsApp.",
+      isWhatsApp: true,
     },
   ];
+
+  const handleCopy = (text: string) => {
+    navigator.clipboard.writeText(text);
+    toast.success("Copied to clipboard!");
+  };
 
   return (
     <section id="contact" className="min-h-screen flex items-center py-20 bg-secondary/20">
@@ -49,105 +52,58 @@ const Contact = () => {
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="font-poppins font-bold text-4xl lg:text-5xl text-foreground mb-12 text-center">
-            Let's <span className="text-primary">Connect</span>
+          <h2 className="font-poppins font-bold text-4xl lg:text-5xl text-center text-foreground mb-12">
+            Let’s <span className="text-primary">Connect</span>
           </h2>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Left Column - Contact Info */}
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="space-y-8"
-            >
-              <div>
-                <p className="font-inter text-lg text-muted-foreground mb-6">
-                  Let's collaborate or discuss new ideas. I'm always open to interesting projects and opportunities.
-                </p>
-              </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {contactLinks.map((contact, index) => (
+              <motion.div
+                key={contact.label}
+                initial={{ opacity: 0, y: 30 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ delay: 0.2 + index * 0.1, duration: 0.5 }}
+                className="group relative bg-card/50 border border-primary/30 rounded-2xl p-6 backdrop-blur-md shadow-lg hover:shadow-primary/50 transition-all duration-300 hover:scale-105"
+              >
+                <div className="flex flex-col items-center text-center space-y-4">
+                  <div
+                    className={`w-14 h-14 flex items-center justify-center rounded-full 
+                    bg-secondary group-hover:bg-primary transition-colors duration-300`}
+                  >
+                    <contact.icon
+                      className={`w-7 h-7 ${
+                        contact.isWhatsApp
+                          ? "text-primary group-hover:text-foreground"
+                          : "text-primary group-hover:text-foreground"
+                      }`}
+                    />
+                  </div>
 
-              <div className="space-y-4">
-                {contactInfo.map((info, index) => (
-                  <motion.a
-                    key={info.label}
-                    href={info.href}
+                  <h3 className="font-semibold text-lg text-foreground">{contact.label}</h3>
+
+                  <p
+                    onClick={() => handleCopy(contact.value)}
+                    className="text-muted-foreground text-sm cursor-pointer hover:text-primary transition-colors"
+                  >
+                    {contact.value}
+                  </p>
+
+                  <p className="text-xs text-muted-foreground/80">{contact.description}</p>
+
+                  <a
+                    href={contact.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    initial={{ opacity: 0, x: -30 }}
-                    animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
-                    transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
-                    className="flex items-center gap-4 p-4 bg-card border-2 border-primary/30 rounded-lg transition-all duration-300 hover:border-primary hover:scale-105 group"
+                    className="mt-3 inline-block px-4 py-2 border border-primary rounded-lg text-primary font-inter text-sm hover:bg-primary hover:text-foreground transition-all duration-300"
                   >
-                    <div className="w-12 h-12 flex items-center justify-center bg-secondary rounded-lg group-hover:bg-primary transition-colors duration-300">
-                      <info.icon className="w-6 h-6 text-primary group-hover:text-foreground" />
-                    </div>
-                    <div>
-                      <p className="font-inter text-sm text-muted-foreground">{info.label}</p>
-                      <p className="font-inter font-medium text-foreground">{info.value}</p>
-                    </div>
-                  </motion.a>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* Right Column - Contact Form */}
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-            >
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <label htmlFor="name" className="block font-inter text-sm text-foreground mb-2">
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    required
-                    className="w-full px-4 py-3 bg-card border-2 border-primary/30 rounded-lg text-foreground font-inter focus:outline-none focus:border-primary transition-colors duration-300"
-                  />
+                    {contact.isWhatsApp ? "Message" : "Visit"}
+                  </a>
                 </div>
-
-                <div>
-                  <label htmlFor="email" className="block font-inter text-sm text-foreground mb-2">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    required
-                    className="w-full px-4 py-3 bg-card border-2 border-primary/30 rounded-lg text-foreground font-inter focus:outline-none focus:border-primary transition-colors duration-300"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="message" className="block font-inter text-sm text-foreground mb-2">
-                    Message
-                  </label>
-                  <textarea
-                    id="message"
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    required
-                    rows={6}
-                    className="w-full px-4 py-3 bg-card border-2 border-primary/30 rounded-lg text-foreground font-inter focus:outline-none focus:border-primary transition-colors duration-300 resize-none"
-                  />
-                </div>
-
-                <Button type="submit" variant="hero" className="w-full">
-                  Send Message
-                </Button>
-              </form>
-            </motion.div>
+              </motion.div>
+            ))}
           </div>
         </motion.div>
       </div>

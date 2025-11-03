@@ -60,12 +60,12 @@ export const skills: Skill[] = [
   // AI & Prompt Engineering
   {
     name: "ChatGPT",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo_white.svg",
     category: "AI",
   },
   {
     name: "OpenAI",
-    logo: "https://seeklogo.com/images/O/open-ai-logo-8B9BFEDC26-seeklogo.com.png",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/4/4b/OpenAI_Logo_white.svg",
     category: "AI",
   },
   {
