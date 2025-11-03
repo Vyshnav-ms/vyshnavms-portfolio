@@ -2,15 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* ===============================
+   🎨 Black & Red Precision Portfolio Design System
+   All colors are defined in HSL format.
+   =============================== */
 
 @layer base {
   :root {
-    /* Black & Red Precision Portfolio Design System */
-    --background: 0 0% 4.3%; /* Jet Black #0B0B0B */
-    --foreground: 0 0% 92%; /* Off White #EAEAEA */
+    /* Color Tokens */
+    --background: 0 0% 4.3%; /* Jet Black (#0B0B0B) */
+    --foreground: 0 0% 92%; /* Off White (#EAEAEA) */
 
     --card: 0 0% 4.3%;
     --card-foreground: 0 0% 92%;
@@ -18,10 +19,10 @@ All colors MUST be HSL.
     --popover: 0 0% 4.3%;
     --popover-foreground: 0 0% 92%;
 
-    --primary: 0 100% 38%; /* Deep Red #C00000 */
+    --primary: 0 100% 38%; /* Deep Red (#C00000) */
     --primary-foreground: 0 0% 92%;
 
-    --secondary: 0 0% 16.5%; /* Divider #2A2A2A */
+    --secondary: 0 0% 16.5%; /* Divider (#2A2A2A) */
     --secondary-foreground: 0 0% 92%;
 
     --muted: 0 0% 16.5%;
@@ -45,6 +46,10 @@ All colors MUST be HSL.
   }
 }
 
+/* ===============================
+   🧩 Base Application Layer
+   =============================== */
+
 @layer base {
   * {
     @apply border-border;
@@ -52,5 +57,60 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    scroll-behavior: smooth;
   }
+}
+
+/* ===============================
+   🧭 Custom Scrollbar Styling
+   Matches the Black & Red Precision Theme
+   =============================== */
+
+/* 🧭 Minimal Red Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: hsl(var(--background));
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--primary));
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(0 100% 45%);
+}
+
+/* ===============================
+   🖱️ Minimal Mouse Tracker
+   =============================== */
+
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  background: hsl(var(--primary));
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: transform 0.12s ease, background 0.3s ease;
+  z-index: 50;
+}
+
+.cursor-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  border: 1px solid hsl(var(--primary));
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: transform 0.2s ease, border 0.3s ease;
+  z-index: 49;
+  opacity: 0.4;
+  mix-blend-mode: lighten;
 }
