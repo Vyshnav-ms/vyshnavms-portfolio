@@ -28,20 +28,28 @@ const About = () => {
               className="space-y-6"
             >
               <p className="font-inter text-lg text-muted-foreground leading-relaxed">
-                I'm Vyshnav, a developer focused on crafting responsive and intelligent web applications.
-                I combine logical precision with design intuition to build user experiences that feel fluid and natural.
+                I'm <span className="text-primary font-semibold">Vyshnav</span>, a developer focused on crafting
+                responsive and intelligent web applications. I combine logical precision with design intuition
+                to build user experiences that feel fluid and natural.
               </p>
+
               <p className="font-inter text-lg text-muted-foreground leading-relaxed">
-                With expertise spanning from frontend frameworks like React to backend systems with Django, 
-                I bridge the gap between elegant design and robust functionality. My passion extends into AI and 
-                cybersecurity, where I explore the intersection of innovation and protection.
+                With expertise spanning from frontend frameworks like{" "}
+                <span className="text-primary font-semibold">React</span> to backend systems with{" "}
+                <span className="text-primary font-semibold">Django</span>, I bridge the gap between elegant design
+                and robust functionality. My passion extends into{" "}
+                <span className="text-primary font-semibold">AI</span> and{" "}
+                <span className="text-primary font-semibold">Cybersecurity</span>, where I explore the intersection
+                of innovation and protection.
               </p>
+
               <p className="font-inter text-lg text-muted-foreground leading-relaxed">
-                Every project is an opportunity to push boundaries and create something meaningful.
+                Every project is an opportunity to push boundaries and create something{" "}
+                <span className="text-primary font-semibold">meaningful</span>.
               </p>
             </motion.div>
 
-            {/* Card */}
+            {/* Card — Quick Facts (unchanged) */}
             <motion.div
               initial={{ opacity: 0, x: 50 }}
               animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
@@ -53,23 +61,21 @@ const About = () => {
                 <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 
                 <div className="relative z-10">
-                  <h3 className="font-poppins font-bold text-2xl text-primary mb-4">Quick Facts</h3>
+                  <h3 className="font-poppins font-bold text-2xl text-primary mb-4">
+                    Quick Facts
+                  </h3>
                   <ul className="space-y-3 font-inter text-muted-foreground">
                     <li className="flex items-center gap-3">
-                      <span className="text-primary">▸</span>
-                      Full Stack Development
+                      <span className="text-primary">▸</span> Full Stack Development
                     </li>
                     <li className="flex items-center gap-3">
-                      <span className="text-primary">▸</span>
-                      AI & Prompt Engineering
+                      <span className="text-primary">▸</span> AI & Prompt Engineering
                     </li>
                     <li className="flex items-center gap-3">
-                      <span className="text-primary">▸</span>
-                      Cybersecurity Enthusiast
+                      <span className="text-primary">▸</span> Cybersecurity Enthusiast
                     </li>
                     <li className="flex items-center gap-3">
-                      <span className="text-primary">▸</span>
-                      Problem Solver & Innovator
+                      <span className="text-primary">▸</span> Problem Solver & Innovator
                     </li>
                   </ul>
                 </div>
