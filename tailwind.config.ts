@@ -18,6 +18,7 @@ export default {
         'inter': ['Inter', 'sans-serif'],
         'mono': ['JetBrains Mono', 'monospace'],
       },
+
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -103,6 +104,7 @@ export default {
         "fade-in-down": "fade-in-down 0.5s ease-out",
         "slide-in-right": "slide-in-right 0.7s ease-out",
         "glare-sweep": "glare-sweep 0.6s ease-in-out",
+        'spin-slow': 'spin 1.2s linear infinite',
       },
     },
   },
