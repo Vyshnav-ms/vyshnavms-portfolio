@@ -23,15 +23,17 @@ export default function PageLoader({
       const t = Math.min(1, elapsed / total);
       const val = Math.round(ease(t) * 100);
       setProgress(val);
+
       if (t < 1) {
         rafRef.current = requestAnimationFrame(step);
       } else {
         anim.start({
           opacity: 0,
-          transition: { duration: 0.7, ease: "easeInOut" },
+          transition: { duration: 0.8, ease: "easeInOut" },
         });
       }
     };
+
     rafRef.current = requestAnimationFrame(step);
     return () => rafRef.current && cancelAnimationFrame(rafRef.current);
   }, [duration, anim]);
@@ -46,9 +48,9 @@ export default function PageLoader({
       aria-hidden
       className="fixed inset-0 z-[9999] flex items-center justify-center"
       style={{
-        background:
-          "radial-gradient(circle at 50% 60%, #080808 0%, #000 100%)",
+        background: "radial-gradient(circle at 50% 60%, #080808 0%, #000 100%)",
         color: "#fff",
+        pointerEvents: progress >= 100 ? "none" : "auto", // ✅ FIX: Allow interactions after load
       }}
     >
       <div style={{ width: "90vw", maxWidth: 1200 }} className="relative">
@@ -74,21 +76,21 @@ export default function PageLoader({
               </text>
             </clipPath>
 
-            {/* vivid glassy red gradient */}
+            {/* vivid glossy red gradient */}
             <linearGradient id="redGlass" x1="0" x2="0" y1="0" y2="1">
               <stop offset="0%" stopColor="#ff4040" stopOpacity="1" />
               <stop offset="40%" stopColor="#e10600" stopOpacity="1" />
               <stop offset="100%" stopColor="#6b0000" stopOpacity="1" />
             </linearGradient>
 
-            {/* glossy reflection highlight */}
+            {/* highlight reflection for glass look */}
             <linearGradient id="reflection" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#ffffff" stopOpacity="0.25" />
-              <stop offset="60%" stopColor="#ffffff" stopOpacity="0.05" />
+              <stop offset="0%" stopColor="#ffffff" stopOpacity="0.35" />
+              <stop offset="50%" stopColor="#ffffff" stopOpacity="0.08" />
               <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
             </linearGradient>
 
-            {/* subtle glow blur for realism */}
+            {/* soft inner glow for realism */}
             <filter id="softGlow">
               <feGaussianBlur stdDeviation="3" result="blur" />
               <feMerge>
@@ -98,7 +100,7 @@ export default function PageLoader({
             </filter>
           </defs>
 
-          {/* background shadow text */}
+          {/* shadow text behind */}
           <text
             x="50%"
             y="50%"
@@ -114,9 +116,9 @@ export default function PageLoader({
             Vyshnav M S
           </text>
 
-          {/* red liquid inside text */}
+          {/* glossy red liquid fill */}
           <g clipPath="url(#clip-text)">
-            {/* base rising rectangle */}
+            {/* solid rising fill */}
             <rect
               x="0"
               y={fillY}
@@ -126,7 +128,7 @@ export default function PageLoader({
               filter="url(#softGlow)"
             />
 
-            {/* main wave */}
+            {/* animated wave (main) */}
             <path d={makeWavePath(fillY, 0)} fill="#e10600" opacity="0.95">
               <animate
                 attributeName="d"
@@ -139,7 +141,7 @@ export default function PageLoader({
               />
             </path>
 
-            {/* secondary wave for uneven motion */}
+            {/* secondary smaller wave */}
             <path d={makeWavePath(fillY + 10, 90, 0.8)} fill="#ff1b1b99">
               <animate
                 attributeName="d"
@@ -152,19 +154,19 @@ export default function PageLoader({
               />
             </path>
 
-            {/* reflection line */}
+            {/* reflection line for glossy surface */}
             <rect
               x="0"
               y={fillY - 5}
               width="1400"
               height="10"
               fill="url(#reflection)"
-              opacity="0.65"
+              opacity="0.7"
             />
           </g>
         </svg>
 
-        {/* red glowing counter */}
+        {/* red glowing percentage text */}
         <div
           style={{
             position: "absolute",
@@ -184,13 +186,14 @@ export default function PageLoader({
   );
 }
 
-/* red liquid wave generator */
+/* Dynamic wave generator for realistic water motion */
 function makeWavePath(y: number, phase = 0, norm = 1) {
   const w = 1400;
   const segments = 8;
   const amp = 16 * norm;
   const baseY = Math.max(0, Math.min(200, y));
   let d = `M0 200 L0 ${baseY} `;
+
   for (let i = 0; i <= segments; i++) {
     const t = i / segments;
     const x = Math.round(t * w);
@@ -204,6 +207,7 @@ function makeWavePath(y: number, phase = 0, norm = 1) {
       d += `Q ${cx} ${cy} ${x} ${py} `;
     }
   }
+
   d += `L ${w} 200 Z`;
   return d;
 }
