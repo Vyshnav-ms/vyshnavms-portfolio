@@ -8,13 +8,14 @@ import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import CursorTracker from "@/components/CursorTracker";
 import PageLoader from "@/components/PageLoader";
+import FloatingMusicButton from "@/components/FloatingMusicButton";
 
 
 
 const Index = () => {
   return (
     <div className="bg-background text-foreground">
-      <PageLoader/>
+      <PageLoader />
       <CursorTracker />
       <Navbar />
       <Hero />
@@ -24,7 +25,7 @@ const Index = () => {
       <Projects />
       <Contact />
       <Footer />
-
+      <FloatingMusicButton />
     </div>
   );
 };

@@ -47,7 +47,7 @@ const Education = () => {
           transition={{ duration: 0.6 }}
         >
           <h2 className="font-poppins font-bold text-4xl lg:text-5xl mb-12 text-center text-white">
-            <span className="text-red-600">Education</span>
+            <span className="text-white-600">Education</span>
           </h2>
 
           <div className="max-w-4xl mx-auto space-y-8">

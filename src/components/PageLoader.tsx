@@ -3,7 +3,7 @@ import { motion, useAnimation } from "framer-motion";
 import "@fontsource/poppins/800.css";
 
 export default function PageLoader({
-  duration = 3200,
+  duration = 4200, // ⏳ slower fill duration
 }: {
   duration?: number;
 }) {
@@ -14,7 +14,7 @@ export default function PageLoader({
 
   useEffect(() => {
     const total = duration;
-    const ease = (t: number) => 1 - Math.pow(1 - t, 2.2);
+    const ease = (t: number) => 1 - Math.pow(1 - t, 2.4); // smoother ease-out
     startRef.current = null;
 
     const step = (ts: number) => {
@@ -39,7 +39,12 @@ export default function PageLoader({
   }, [duration, anim]);
 
   const svgH = 200;
-  const fillY = Math.round(svgH - (progress / 100) * svgH);
+  // base Y with unevenness based on sine curve → slow fluid rise
+  const baseFillY = Math.round(svgH - (progress / 100) * svgH);
+  const dynamicFillY =
+    baseFillY +
+    Math.sin(progress * 0.12) * 6 + // gentle bobbing
+    Math.cos(progress * 0.08) * 4; // subtle uneven offset
 
   return (
     <motion.div
@@ -48,9 +53,9 @@ export default function PageLoader({
       aria-hidden
       className="fixed inset-0 z-[9999] flex items-center justify-center"
       style={{
-        background: "radial-gradient(circle at 50% 60%, #080808 0%, #000 100%)",
+        background: "radial-gradient(circle at 50% 60%, #0a0a0a 0%, #000 100%)",
         color: "#fff",
-        pointerEvents: progress >= 100 ? "none" : "auto", // ✅ FIX: Allow interactions after load
+        pointerEvents: progress >= 100 ? "none" : "auto",
       }}
     >
       <div style={{ width: "90vw", maxWidth: 1200 }} className="relative">
@@ -60,7 +65,6 @@ export default function PageLoader({
           preserveAspectRatio="xMidYMid meet"
         >
           <defs>
-            {/* clipPath to make the wave fill inside text */}
             <clipPath id="clip-text">
               <text
                 x="50%"
@@ -76,23 +80,22 @@ export default function PageLoader({
               </text>
             </clipPath>
 
-            {/* vivid glossy red gradient */}
+            {/* RedBull glossy gradient */}
             <linearGradient id="redGlass" x1="0" x2="0" y1="0" y2="1">
-              <stop offset="0%" stopColor="#ff4040" stopOpacity="1" />
-              <stop offset="40%" stopColor="#e10600" stopOpacity="1" />
-              <stop offset="100%" stopColor="#6b0000" stopOpacity="1" />
+              <stop offset="0%" stopColor="#ff4040" />
+              <stop offset="45%" stopColor="#e10600" />
+              <stop offset="100%" stopColor="#5a0000" />
             </linearGradient>
 
-            {/* highlight reflection for glass look */}
+            {/* Light reflection gradient */}
             <linearGradient id="reflection" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stopColor="#ffffff" stopOpacity="0.35" />
               <stop offset="50%" stopColor="#ffffff" stopOpacity="0.08" />
               <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
             </linearGradient>
 
-            {/* soft inner glow for realism */}
             <filter id="softGlow">
-              <feGaussianBlur stdDeviation="3" result="blur" />
+              <feGaussianBlur stdDeviation="2.5" result="blur" />
               <feMerge>
                 <feMergeNode in="blur" />
                 <feMergeNode in="SourceGraphic" />
@@ -100,7 +103,7 @@ export default function PageLoader({
             </filter>
           </defs>
 
-          {/* shadow text behind */}
+          {/* White outlined border text */}
           <text
             x="50%"
             y="50%"
@@ -109,64 +112,70 @@ export default function PageLoader({
             fontSize="160"
             fontWeight="800"
             fontFamily="Poppins, sans-serif"
-            fill="#0d0d0d"
-            opacity={0.95}
+            stroke="#fff"
+            strokeWidth="3"
+            fill="transparent"
             letterSpacing="-6"
+            opacity={0.95}
           >
             Vyshnav M S
           </text>
 
-          {/* glossy red liquid fill */}
+          {/* Glossy red fill inside text */}
           <g clipPath="url(#clip-text)">
-            {/* solid rising fill */}
+            {/* Rising red glass fill */}
             <rect
               x="0"
-              y={fillY}
+              y={dynamicFillY}
               width="1400"
-              height={200 - fillY}
+              height={200 - dynamicFillY}
               fill="url(#redGlass)"
               filter="url(#softGlow)"
             />
 
-            {/* animated wave (main) */}
-            <path d={makeWavePath(fillY, 0)} fill="#e10600" opacity="0.95">
+            {/* Main wave */}
+            <path d={makeWavePath(dynamicFillY, 0)} fill="#e10600" opacity="0.95">
               <animate
                 attributeName="d"
-                dur="3.4s"
+                dur="3.8s"
                 repeatCount="indefinite"
-                values={`${makeWavePath(fillY, 0)};
-                         ${makeWavePath(fillY - 8, 60)};
-                         ${makeWavePath(fillY + 6, 120)};
-                         ${makeWavePath(fillY, 0)}`}
+                values={`${makeWavePath(dynamicFillY, 0)};
+                         ${makeWavePath(dynamicFillY - 8, 80)};
+                         ${makeWavePath(dynamicFillY + 6, 160)};
+                         ${makeWavePath(dynamicFillY, 0)}`}
               />
             </path>
 
-            {/* secondary smaller wave */}
-            <path d={makeWavePath(fillY + 10, 90, 0.8)} fill="#ff1b1b99">
+            {/* Secondary offset wave for depth */}
+            <path
+              d={makeWavePath(dynamicFillY + 8, 100, 0.7)}
+              fill="#ff1b1b88"
+              opacity="0.8"
+            >
               <animate
                 attributeName="d"
-                dur="5s"
+                dur="5.5s"
                 repeatCount="indefinite"
-                values={`${makeWavePath(fillY + 10, 90, 0.8)};
-                         ${makeWavePath(fillY + 5, 150, 0.8)};
-                         ${makeWavePath(fillY + 14, 230, 0.8)};
-                         ${makeWavePath(fillY + 10, 90, 0.8)}`}
+                values={`${makeWavePath(dynamicFillY + 8, 100, 0.7)};
+                         ${makeWavePath(dynamicFillY + 3, 180, 0.7)};
+                         ${makeWavePath(dynamicFillY + 10, 260, 0.7)};
+                         ${makeWavePath(dynamicFillY + 8, 100, 0.7)}`}
               />
             </path>
 
-            {/* reflection line for glossy surface */}
+            {/* Top reflection line for realism */}
             <rect
               x="0"
-              y={fillY - 5}
+              y={dynamicFillY - 5}
               width="1400"
               height="10"
               fill="url(#reflection)"
-              opacity="0.7"
+              opacity="0.8"
             />
           </g>
         </svg>
 
-        {/* red glowing percentage text */}
+        {/* Red glowing progress counter */}
         <div
           style={{
             position: "absolute",
@@ -186,11 +195,11 @@ export default function PageLoader({
   );
 }
 
-/* Dynamic wave generator for realistic water motion */
+/* Make the wave look natural and asymmetrical */
 function makeWavePath(y: number, phase = 0, norm = 1) {
   const w = 1400;
-  const segments = 8;
-  const amp = 16 * norm;
+  const segments = 10;
+  const amp = 14 * norm;
   const baseY = Math.max(0, Math.min(200, y));
   let d = `M0 200 L0 ${baseY} `;
 
@@ -198,12 +207,12 @@ function makeWavePath(y: number, phase = 0, norm = 1) {
     const t = i / segments;
     const x = Math.round(t * w);
     const theta = (t * Math.PI * 2) + (phase * Math.PI / 180);
-    const wobble = Math.sin(theta * 1.15) * amp * Math.cos(t * Math.PI * 1.05);
+    const wobble = Math.sin(theta * 1.1) * amp + Math.cos(t * Math.PI) * (amp / 2);
     const py = Math.round(baseY + wobble);
     if (i === 0) d += `L ${x} ${py} `;
     else {
       const cx = x - w / (segments * 2);
-      const cy = py - wobble * 0.4;
+      const cy = py - wobble * 0.3;
       d += `Q ${cx} ${cy} ${x} ${py} `;
     }
   }

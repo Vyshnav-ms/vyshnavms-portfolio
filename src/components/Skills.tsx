@@ -7,10 +7,11 @@ const Skills = () => {
       <div className="max-w-6xl mx-auto px-6">
         {/* Section Title */}
         <div className="flex justify-center mb-10">
-          <h2 className="font-poppins font-bold text-3xl lg:text-4xl text-foreground text-center border-b-4 border-primary pb-2 inline-block">
+          <h2 className="font-poppins font-bold text-4xl lg:text-5xl text-foreground text-center">
             Technical <span className="text-primary">Skills</span>
           </h2>
         </div>
+
 
         {/* Skills Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
