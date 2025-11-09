@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Play, Pause, SkipForward, SkipBack } from "lucide-react";
 import YouTube from "react-youtube";
 
-// ✅ Famous English songs
+// 🎵 Famous English songs list
 const songs = [
   { title: "Blinding Lights – The Weeknd", videoId: "fHI8X4OXluQ" },
   { title: "Shape of You – Ed Sheeran", videoId: "JGwWNGJdvx8" },
@@ -20,33 +20,37 @@ const songs = [
 export default function FloatingYouTubeMusicButton() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [expanded, setExpanded] = useState(false);
-  const [currentTrack, setCurrentTrack] = useState(0);
+  const [currentTrack, setCurrentTrack] = useState<number | null>(null);
   const playerRef = useRef<any>(null);
   const collapseTimer = useRef<NodeJS.Timeout | null>(null);
 
+  // 🎲 Pick a random track index
+  const getRandomTrack = () => Math.floor(Math.random() * songs.length);
+
+  // ▶️ Handle play toggle
   const togglePlay = () => {
     if (isPlaying) {
       playerRef.current?.pauseVideo();
       setIsPlaying(false);
     } else {
-      playerRef.current?.playVideo();
+      // first play or random pick
+      const newTrack = getRandomTrack();
+      setCurrentTrack(newTrack);
       setIsPlaying(true);
     }
   };
 
   const nextTrack = () => {
-    const next = (currentTrack + 1) % songs.length;
-    setCurrentTrack(next);
+    setCurrentTrack(getRandomTrack());
     setIsPlaying(true);
   };
 
   const prevTrack = () => {
-    const prev = (currentTrack - 1 + songs.length) % songs.length;
-    setCurrentTrack(prev);
+    setCurrentTrack(getRandomTrack());
     setIsPlaying(true);
   };
 
-  // Auto-collapse after hover ends
+  // 🕓 Auto-collapse after hover
   const resetCollapseTimer = () => {
     if (collapseTimer.current) clearTimeout(collapseTimer.current);
     collapseTimer.current = setTimeout(() => setExpanded(false), 4000);
@@ -59,7 +63,7 @@ export default function FloatingYouTubeMusicButton() {
 
   return (
     <>
-      {/* Floating Player */}
+      {/* Floating Music Player */}
       <motion.div
         className="fixed bottom-6 right-6 z-[9998] flex items-center"
         animate={{
@@ -75,7 +79,7 @@ export default function FloatingYouTubeMusicButton() {
         onMouseEnter={() => setExpanded(true)}
         onMouseLeave={() => setExpanded(false)}
       >
-        {/* 🎵 Play / Pause button */}
+        {/* Play / Pause Button */}
         <motion.button
           onClick={(e) => {
             e.stopPropagation();
@@ -87,9 +91,9 @@ export default function FloatingYouTubeMusicButton() {
           {isPlaying ? <Pause size={22} /> : <Play size={22} />}
         </motion.button>
 
-        {/* Expanded Track Info */}
+        {/* Expanded Info */}
         <AnimatePresence>
-          {expanded && (
+          {expanded && currentTrack !== null && (
             <motion.div
               initial={{ opacity: 0, width: 0 }}
               animate={{ opacity: 1, width: "auto" }}
@@ -129,23 +133,25 @@ export default function FloatingYouTubeMusicButton() {
         </AnimatePresence>
       </motion.div>
 
-      {/* 🎬 Hidden YouTube Player */}
-      <div style={{ display: "none" }}>
-        <YouTube
-          videoId={songs[currentTrack].videoId}
-          opts={{
-            height: "0",
-            width: "0",
-            playerVars: {
-              autoplay: 1,
-              modestbranding: 1,
-              controls: 0,
-            },
-          }}
-          onReady={(e) => (playerRef.current = e.target)}
-          onEnd={() => nextTrack()}
-        />
-      </div>
+      {/* Hidden YouTube Player (loads only when playing) */}
+      {isPlaying && currentTrack !== null && (
+        <div style={{ display: "none" }}>
+          <YouTube
+            videoId={songs[currentTrack].videoId}
+            opts={{
+              height: "0",
+              width: "0",
+              playerVars: {
+                autoplay: 1,
+                modestbranding: 1,
+                controls: 0,
+              },
+            }}
+            onReady={(e) => (playerRef.current = e.target)}
+            onEnd={() => nextTrack()}
+          />
+        </div>
+      )}
     </>
   );
 }
