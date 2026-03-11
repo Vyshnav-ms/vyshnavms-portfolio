@@ -14,8 +14,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        'poppins': ['Poppins', 'sans-serif'],
         'inter': ['Inter', 'sans-serif'],
+        'dm-sans': ['"DM Sans"', 'sans-serif'],
+        'poppins': ['Poppins', 'sans-serif'],
         'mono': ['JetBrains Mono', 'monospace'],
       },
 
@@ -97,7 +98,33 @@ export default {
           "100%": {
             transform: "translateX(100%)"
           }
-        }
+        },
+        "gradient-shift": {
+          "0%, 100%": {
+            backgroundPosition: "0% 50%"
+          },
+          "50%": {
+            backgroundPosition: "100% 50%"
+          }
+        },
+        "glow-pulse": {
+          "0%, 100%": {
+            opacity: "0.4",
+            transform: "scale(1)"
+          },
+          "50%": {
+            opacity: "0.8",
+            transform: "scale(1.05)"
+          }
+        },
+        "float": {
+          "0%, 100%": {
+            transform: "translateY(0px)"
+          },
+          "50%": {
+            transform: "translateY(-10px)"
+          }
+        },
       },
       animation: {
         "fade-in-up": "fade-in-up 0.6s ease-out",
@@ -105,6 +132,9 @@ export default {
         "slide-in-right": "slide-in-right 0.7s ease-out",
         "glare-sweep": "glare-sweep 0.6s ease-in-out",
         'spin-slow': 'spin 1.2s linear infinite',
+        "gradient-shift": "gradient-shift 8s ease infinite",
+        "glow-pulse": "glow-pulse 3s ease-in-out infinite",
+        "float": "float 6s ease-in-out infinite",
       },
     },
   },

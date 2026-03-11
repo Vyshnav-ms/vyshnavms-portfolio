@@ -3,118 +3,226 @@
 @tailwind utilities;
 
 /* ===============================
-   🎨 Black & Red Precision Portfolio Design System
-   All colors are defined in HSL format.
+   🌍 International Premium Portfolio — Noir + Teal + Gold
+   Ultra-modern, luxurious, award-worthy design system
    =============================== */
 
 @layer base {
   :root {
-    /* Color Tokens */
-    --background: 0 0% 4.3%; /* Jet Black (#0B0B0B) */
-    --foreground: 0 0% 92%; /* Off White (#EAEAEA) */
+    /* Background & Foreground */
+    --background: 220 15% 3.5%;       /* True noir (#08090d) */
+    --foreground: 40 10% 92%;          /* Warm white (#ece8e1) */
 
-    --card: 0 0% 4.3%;
-    --card-foreground: 0 0% 92%;
+    /* Cards & Popovers */
+    --card: 220 12% 6%;
+    --card-foreground: 40 10% 92%;
 
-    --popover: 0 0% 4.3%;
-    --popover-foreground: 0 0% 92%;
+    --popover: 220 12% 6%;
+    --popover-foreground: 40 10% 92%;
 
-    --primary: 0 100% 38%; /* Deep Red (#C00000) */
-    --primary-foreground: 0 0% 92%;
+    /* Primary — Electric Teal */
+    --primary: 160 84% 39%;            /* #0ea370 → vivid teal */
+    --primary-foreground: 220 15% 4%;
 
-    --secondary: 0 0% 16.5%; /* Divider (#2A2A2A) */
-    --secondary-foreground: 0 0% 92%;
+    /* Accent — Warm Gold */
+    --accent: 44 95% 63%;              /* #f5c542 → warm gold */
+    --accent-foreground: 220 15% 4%;
 
-    --muted: 0 0% 16.5%;
-    --muted-foreground: 0 0% 60%;
+    /* Secondary — Dark Surface */
+    --secondary: 220 10% 10%;
+    --secondary-foreground: 40 10% 85%;
 
-    --accent: 0 100% 38%;
-    --accent-foreground: 0 0% 92%;
+    /* Muted */
+    --muted: 220 8% 15%;
+    --muted-foreground: 220 8% 50%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 92%;
+    /* Destructive */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 0 0% 16.5%;
-    --input: 0 0% 16.5%;
-    --ring: 0 100% 38%;
+    /* Borders & Input */
+    --border: 220 8% 13%;
+    --input: 220 8% 13%;
+    --ring: 160 84% 39%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
     /* Custom tokens */
-    --glare: 0 0% 100% / 0.1; /* White glare overlay */
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --glass-bg: rgba(255, 255, 255, 0.025);
+    --glass-border: rgba(255, 255, 255, 0.06);
+    --transition-smooth: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
   }
 }
 
 /* ===============================
-   🧩 Base Application Layer
+   🧩 Base Layer
    =============================== */
 
 @layer base {
   * {
     @apply border-border;
   }
-
   body {
     @apply bg-background text-foreground;
     scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    cursor: none;
+  }
+  a, button, [role="button"] {
+    cursor: none;
   }
 }
 
 /* ===============================
-   🧭 Custom Scrollbar Styling
-   Matches the Black & Red Precision Theme
+   💎 Glass Utilities
    =============================== */
 
-/* 🧭 Minimal Red Scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
+.glass-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
-::-webkit-scrollbar-track {
-  background: hsl(var(--background));
+
+.glass-card-hover {
+  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
-::-webkit-scrollbar-thumb {
-  background: hsl(var(--primary));
-  border-radius: 8px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: hsl(0 100% 45%);
+
+.glass-card-hover:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(14, 163, 112, 0.25);
+  box-shadow:
+    0 8px 40px rgba(14, 163, 112, 0.06),
+    0 0 0 1px rgba(14, 163, 112, 0.08);
+  transform: translateY(-2px);
 }
 
 /* ===============================
-   🖱️ Minimal Mouse Tracker
+   🌈 Gradient Utilities
+   =============================== */
+
+.gradient-text {
+  background: linear-gradient(135deg, hsl(160 84% 50%), hsl(44 95% 63%));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-border {
+  position: relative;
+}
+
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, hsl(160 84% 39% / 0.4), hsl(44 95% 63% / 0.4));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ===============================
+   🧭 Scrollbar
+   =============================== */
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(160 84% 39% / 0.4);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(160 84% 39% / 0.7);
+}
+
+/* ===============================
+   🖱️ Premium Magnetic Cursor
    =============================== */
 
 .cursor-dot {
   position: fixed;
   top: 0;
   left: 0;
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
   background: hsl(var(--primary));
   border-radius: 50%;
   pointer-events: none;
-  transform: translate(-50%, -50%);
-  transition: transform 0.12s ease, background 0.3s ease;
-  z-index: 50;
+  z-index: 9999;
+  mix-blend-mode: difference;
+  transition: width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
 }
 
-.cursor-glow {
+.cursor-ring {
   position: fixed;
   top: 0;
   left: 0;
   width: 40px;
   height: 40px;
-  border: 1px solid hsl(var(--primary));
+  border: 1.5px solid hsl(var(--primary) / 0.4);
   border-radius: 50%;
   pointer-events: none;
-  transform: translate(-50%, -50%);
-  transition: transform 0.2s ease, border 0.3s ease;
-  z-index: 49;
-  opacity: 0.4;
-  mix-blend-mode: lighten;
+  z-index: 9998;
+  transition: width 0.4s cubic-bezier(0.22,1,0.36,1), height 0.4s cubic-bezier(0.22,1,0.36,1), border-color 0.3s ease;
 }
 
+.cursor-dot.hovering {
+  width: 60px;
+  height: 60px;
+  background: hsl(var(--primary) / 0.1);
+  border: 1.5px solid hsl(var(--primary));
+}
 
+.cursor-ring.hovering {
+  width: 12px;
+  height: 12px;
+  border-color: hsl(var(--accent));
+}
 
+/* ===============================
+   ✨ Animated Background Mesh
+   =============================== */
 
+.animated-gradient-bg {
+  background:
+    radial-gradient(ellipse at 15% 50%, hsl(160 84% 39% / 0.07) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 20%, hsl(44 95% 63% / 0.05) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 85%, hsl(160 60% 30% / 0.04) 0%, transparent 50%),
+    hsl(var(--background));
+}
+
+/* ===============================
+   🔮 Glow Effects
+   =============================== */
+
+.glow-teal {
+  box-shadow: 0 0 20px hsl(160 84% 39% / 0.15), 0 0 60px hsl(160 84% 39% / 0.04);
+}
+
+.glow-teal-hover:hover {
+  box-shadow: 0 0 30px hsl(160 84% 39% / 0.25), 0 0 80px hsl(160 84% 39% / 0.08);
+}
+
+/* ===============================
+   🌟 Noise Grain Overlay
+   =============================== */
+
+.noise-overlay::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9990;
+  pointer-events: none;
+  opacity: 0.015;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}

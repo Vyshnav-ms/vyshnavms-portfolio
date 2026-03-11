@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Play, Pause, SkipForward, SkipBack } from "lucide-react";
 import YouTube from "react-youtube";
 
-// 🎵 Famous English songs list
 const songs = [
   { title: "Blinding Lights – The Weeknd", videoId: "fHI8X4OXluQ" },
   { title: "Shape of You – Ed Sheeran", videoId: "JGwWNGJdvx8" },
@@ -24,33 +23,22 @@ export default function FloatingYouTubeMusicButton() {
   const playerRef = useRef<any>(null);
   const collapseTimer = useRef<NodeJS.Timeout | null>(null);
 
-  // 🎲 Pick a random track index
   const getRandomTrack = () => Math.floor(Math.random() * songs.length);
 
-  // ▶️ Handle play toggle
   const togglePlay = () => {
     if (isPlaying) {
       playerRef.current?.pauseVideo();
       setIsPlaying(false);
     } else {
-      // first play or random pick
       const newTrack = getRandomTrack();
       setCurrentTrack(newTrack);
       setIsPlaying(true);
     }
   };
 
-  const nextTrack = () => {
-    setCurrentTrack(getRandomTrack());
-    setIsPlaying(true);
-  };
+  const nextTrack = () => { setCurrentTrack(getRandomTrack()); setIsPlaying(true); };
+  const prevTrack = () => { setCurrentTrack(getRandomTrack()); setIsPlaying(true); };
 
-  const prevTrack = () => {
-    setCurrentTrack(getRandomTrack());
-    setIsPlaying(true);
-  };
-
-  // 🕓 Auto-collapse after hover
   const resetCollapseTimer = () => {
     if (collapseTimer.current) clearTimeout(collapseTimer.current);
     collapseTimer.current = setTimeout(() => setExpanded(false), 4000);
@@ -63,35 +51,32 @@ export default function FloatingYouTubeMusicButton() {
 
   return (
     <>
-      {/* Floating Music Player */}
       <motion.div
         className="fixed bottom-6 right-6 z-[9998] flex items-center"
         animate={{
-          width: expanded ? 260 : 56,
-          height: 56,
-          borderRadius: 50,
-          background: "linear-gradient(135deg, #ff1b1b, #7a0000)",
-          boxShadow: isPlaying
-            ? "0 0 25px 5px rgba(255, 0, 0, 0.6)"
-            : "0 0 10px 2px rgba(255, 0, 0, 0.25)",
+          width: expanded ? 260 : 52,
+          height: 52,
+          borderRadius: 30,
         }}
         transition={{ type: "spring", stiffness: 220, damping: 22 }}
+        style={{
+          background: "linear-gradient(135deg, #0ea370, #0d9488)",
+          boxShadow: isPlaying
+            ? "0 0 20px rgba(14, 163, 112, 0.35)"
+            : "0 0 8px rgba(14, 163, 112, 0.12)",
+        }}
         onMouseEnter={() => setExpanded(true)}
         onMouseLeave={() => setExpanded(false)}
       >
-        {/* Play / Pause Button */}
         <motion.button
-          onClick={(e) => {
-            e.stopPropagation();
-            togglePlay();
-          }}
+          onClick={(e) => { e.stopPropagation(); togglePlay(); }}
           whileTap={{ scale: 0.9 }}
-          className="ml-2 w-10 h-10 flex items-center justify-center rounded-full bg-black/30 text-white backdrop-blur-sm border border-red-400/40"
+          className="ml-1.5 w-9 h-9 flex items-center justify-center rounded-full bg-black/25 text-white backdrop-blur-sm border border-white/10"
+          aria-label={isPlaying ? "Pause music" : "Play music"}
         >
-          {isPlaying ? <Pause size={22} /> : <Play size={22} />}
+          {isPlaying ? <Pause size={18} /> : <Play size={18} />}
         </motion.button>
 
-        {/* Expanded Info */}
         <AnimatePresence>
           {expanded && currentTrack !== null && (
             <motion.div
@@ -102,30 +87,20 @@ export default function FloatingYouTubeMusicButton() {
               className="overflow-hidden flex items-center justify-between ml-2 pr-3 text-white"
             >
               <div className="flex flex-col leading-tight select-none">
-                <span className="text-xs text-gray-300">Now Playing</span>
-                <span className="text-sm font-medium text-white truncate max-w-[130px]">
+                <span className="text-[10px] text-white/50 uppercase tracking-wider">Playing</span>
+                <span className="text-xs font-medium text-white truncate max-w-[120px]">
                   {songs[currentTrack].title}
                 </span>
               </div>
 
-              <div className="flex items-center ml-3 gap-2">
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    prevTrack();
-                  }}
-                  className="p-1 hover:text-red-300 transition"
-                >
-                  <SkipBack size={18} />
+              <div className="flex items-center ml-3 gap-1.5">
+                <button onClick={(e) => { e.stopPropagation(); prevTrack(); }}
+                  className="p-1 hover:text-accent transition" aria-label="Previous track">
+                  <SkipBack size={16} />
                 </button>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    nextTrack();
-                  }}
-                  className="p-1 hover:text-red-300 transition"
-                >
-                  <SkipForward size={18} />
+                <button onClick={(e) => { e.stopPropagation(); nextTrack(); }}
+                  className="p-1 hover:text-accent transition" aria-label="Next track">
+                  <SkipForward size={16} />
                 </button>
               </div>
             </motion.div>
@@ -133,20 +108,11 @@ export default function FloatingYouTubeMusicButton() {
         </AnimatePresence>
       </motion.div>
 
-      {/* Hidden YouTube Player (loads only when playing) */}
       {isPlaying && currentTrack !== null && (
         <div style={{ display: "none" }}>
           <YouTube
             videoId={songs[currentTrack].videoId}
-            opts={{
-              height: "0",
-              width: "0",
-              playerVars: {
-                autoplay: 1,
-                modestbranding: 1,
-                controls: 0,
-              },
-            }}
+            opts={{ height: "0", width: "0", playerVars: { autoplay: 1, modestbranding: 1, controls: 0 } }}
             onReady={(e) => (playerRef.current = e.target)}
             onEnd={() => nextTrack()}
           />

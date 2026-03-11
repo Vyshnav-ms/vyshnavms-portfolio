@@ -1,9 +1,9 @@
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { Mail, Github, Linkedin } from "lucide-react";
 import { toast } from "sonner";
-import { SiWhatsapp } from "react-icons/si"; // ✅ WhatsApp icon
+import { SiWhatsapp } from "react-icons/si";
+import SectionHeading from "./SectionHeading";
 
 const Contact = () => {
   const ref = useRef(null);
@@ -47,57 +47,57 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="min-h-screen flex items-center py-20 bg-secondary/20">
-      <div className="container mx-auto px-6">
+    <section id="contact" className="py-24 relative">
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/[0.015] to-transparent pointer-events-none" />
+
+      <div className="container mx-auto px-6 relative z-10">
+        <SectionHeading
+          title="Let's"
+          highlight="Connect"
+          subtitle="Got a project in mind? Let's build something amazing together."
+        />
+
         <motion.div
           ref={ref}
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="font-poppins font-bold text-4xl lg:text-5xl text-center text-foreground mb-12">
-            Let’s <span className="text-primary">Connect</span>
-          </h2>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-5xl mx-auto">
             {contactLinks.map((contact, index) => (
               <motion.div
                 key={contact.label}
                 initial={{ opacity: 0, y: 30 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: 0.2 + index * 0.1, duration: 0.5 }}
-                className="group relative bg-card/50 border border-primary/30 rounded-2xl p-6 backdrop-blur-md shadow-lg hover:shadow-primary/50 transition-all duration-300 hover:scale-105"
+                transition={{ delay: 0.15 + index * 0.1, duration: 0.5 }}
+                className="group glass-card glass-card-hover rounded-2xl p-6 relative overflow-hidden"
               >
-                <div className="flex flex-col items-center text-center space-y-4">
-                  <div
-                    className={`w-14 h-14 flex items-center justify-center rounded-full 
-                    bg-secondary group-hover:bg-primary transition-colors duration-300`}
-                  >
-                    <contact.icon
-                      className={`w-7 h-7 ${
-                        contact.isWhatsApp
-                          ? "text-primary group-hover:text-foreground"
-                          : "text-primary group-hover:text-foreground"
-                      }`}
-                    />
+                <div className="flex flex-col items-center text-center space-y-4 relative z-10">
+                  <div className="w-12 h-12 flex items-center justify-center rounded-full bg-secondary group-hover:bg-gradient-to-br group-hover:from-primary group-hover:to-accent transition-all duration-400">
+                    <contact.icon className="w-6 h-6 text-primary group-hover:text-background transition-colors duration-300" />
                   </div>
 
-                  <h3 className="font-semibold text-lg text-foreground">{contact.label}</h3>
+                  <h3 className="font-medium text-base text-foreground">{contact.label}</h3>
 
                   <p
                     onClick={() => handleCopy(contact.value)}
                     className="text-muted-foreground text-sm cursor-pointer hover:text-primary transition-colors"
+                    role="button"
+                    tabIndex={0}
+                    aria-label={`Copy ${contact.label} to clipboard`}
                   >
                     {contact.value}
                   </p>
 
-                  <p className="text-xs text-muted-foreground/80">{contact.description}</p>
+                  <p className="text-xs text-muted-foreground/60">{contact.description}</p>
 
                   <a
                     href={contact.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-3 inline-block px-4 py-2 border border-primary rounded-lg text-primary font-inter text-sm hover:bg-primary hover:text-foreground transition-all duration-300"
+                    className="mt-1 inline-block px-5 py-2 rounded-full font-inter text-xs font-medium tracking-wide uppercase transition-all duration-300
+                      border border-primary/30 text-primary
+                      hover:bg-gradient-to-r hover:from-primary hover:to-accent hover:text-background hover:border-transparent hover:shadow-lg hover:shadow-primary/15"
                   >
                     {contact.isWhatsApp ? "Message" : "Visit"}
                   </a>

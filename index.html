@@ -23,11 +23,11 @@
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="apple-touch-icon" href="/vyshnav-logo.png" />
 
-    <!-- Google Fonts -->
+    <!-- Google Fonts — Inter, DM Sans, Poppins, JetBrains Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
 
@@ -61,14 +61,29 @@
     />
 
     <!-- ✅ Theme & Color Mode -->
-    <meta name="theme-color" content="#000000" />
-    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#08090d" />
+    <meta name="color-scheme" content="dark" />
 
     <!-- Preload JS -->
     <link rel="preload" as="script" href="/src/main.tsx" />
 
-    <!-- Optional: Preload OG image for faster social fetch -->
-    <link rel="preload" as="image" href="/opengraph-image.png" />
+    <!-- ✅ JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Vyshnav M S",
+      "url": "https://vyshnavms.vercel.app",
+      "image": "https://vyshnavms.vercel.app/opengraph-image.png",
+      "jobTitle": "Full Stack Developer",
+      "description": "Passionate Full Stack Developer skilled in React, Django, TypeScript, and AI-driven web applications.",
+      "sameAs": [
+        "https://github.com/Vyshnav-ms",
+        "https://linkedin.com/in/vyshnav-m-s"
+      ],
+      "knowsAbout": ["React", "Django", "TypeScript", "Python", "AI", "Full Stack Development"]
+    }
+    </script>
   </head>
 
   <body>

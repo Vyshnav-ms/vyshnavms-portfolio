@@ -3,6 +3,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { Github, ExternalLink } from "lucide-react";
+import SectionHeading from "./SectionHeading";
 
 const projects = [
   {
@@ -30,7 +31,7 @@ const projects = [
     github: "https://github.com/Vyshnav-ms/Mental-pal",
     live: "#",
   },
-    {
+  {
     title: "Meet and Travel",
     description: "A web application built with Django that connects people with strangers to plan and travel together.",
     tech: ["Django", "Python", "SQLite3"],
@@ -41,7 +42,7 @@ const projects = [
   {
     title: "Admissions Landing Page",
     description: "Modern responsive landing page with smooth animations and optimal user experience design",
-    tech: ["React", "Next.js","TypeScript","Tailwind CSS"],
+    tech: ["React", "Next.js", "TypeScript", "Tailwind CSS"],
     image: "/lead.png",
     github: "#",
     live: "https://lead.ac.in/InternationalAdmission/",
@@ -62,84 +63,76 @@ const Projects = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section
-      id="projects"
-      className="min-h-screen flex items-center py-20 bg-black text-white"
-    >
+    <section id="projects" className="py-24 relative">
       <div className="container mx-auto px-6">
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-          transition={{ duration: 0.6 }}
-        >
-          <h2 className="font-poppins font-bold text-4xl lg:text-5xl mb-12 text-center">
-            <span className="text-white">My </span>
-            <span className="text-red-600">Projects</span>
-          </h2>
+        <SectionHeading
+          title="My"
+          highlight="Projects"
+          subtitle="A showcase of work that defines my craft"
+        />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project, index) => (
-              <motion.div
-                key={project.title}
-                initial={{ opacity: 0, y: 50 }}
-                animate={
-                  isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }
-                }
-                transition={{ duration: 0.6, delay: index * 0.2 }}
-                className="relative bg-black border border-red-600/40 rounded-2xl p-6 lg:p-8 overflow-hidden 
-                           hover:border-red-600 transition-all duration-500 hover:scale-[1.03] group shadow-lg"
-              >
-                {/* Red line accent top */}
-                <div className="absolute top-0 left-0 w-full h-[3px] bg-red-600/70" />
+        <div ref={ref} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 max-w-7xl mx-auto">
+          {projects.map((project, index) => (
+            <motion.div
+              key={project.title}
+              initial={{ opacity: 0, y: 50 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+              transition={{ duration: 0.5, delay: index * 0.12 }}
+              className="glass-card glass-card-hover rounded-2xl p-6 lg:p-8 relative overflow-hidden group"
+            >
+              {/* Gradient top accent line */}
+              <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-primary via-accent to-primary/30" />
 
-                {/* Glassy hover effect */}
-                <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
+              {/* Hover glow orbs */}
+              <div className="absolute -top-16 -right-16 w-32 h-32 bg-primary/8 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
 
-                <div className="relative z-10 space-y-4">
-                  <h3 className="font-poppins font-semibold text-xl text-white group-hover:text-red-500 transition-colors duration-300">
-                    {project.title}
-                  </h3>
-                  <p className="font-inter text-sm text-gray-400 leading-relaxed">
-                    {project.description}
-                  </p>
+              <div className="relative z-10 space-y-4">
+                <h3 className="font-poppins font-semibold text-xl text-foreground group-hover:text-primary transition-colors duration-300">
+                  {project.title}
+                </h3>
+                <p className="font-inter text-sm text-muted-foreground leading-relaxed">
+                  {project.description}
+                </p>
 
-                  <div className="flex flex-wrap gap-2 pt-2">
-                    {project.tech.map((tech) => (
-                      <span
-                        key={tech}
-                        className="px-3 py-1 text-xs font-mono bg-black border border-red-600/40 text-red-500 rounded-full hover:border-red-600 transition-all duration-300"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="flex gap-5 pt-4">
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 text-sm text-gray-400 hover:text-red-500 transition-colors duration-300"
+                <div className="flex flex-wrap gap-2 pt-2">
+                  {project.tech.map((tech) => (
+                    <span
+                      key={tech}
+                      className="px-3 py-1 text-xs font-mono rounded-full transition-all duration-300
+                        bg-secondary text-muted-foreground border border-primary/20
+                        hover:border-primary/50 hover:text-primary"
                     >
-                      <Github className="w-4 h-4" />
-                      Code
-                    </a>
-                    <a
-                      href={project.live}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 text-sm text-gray-400 hover:text-red-500 transition-colors duration-300"
-                    >
-                      <ExternalLink className="w-4 h-4" />
-                      Live
-                    </a>
-                  </div>
+                      {tech}
+                    </span>
+                  ))}
                 </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+
+                <div className="flex gap-5 pt-4">
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors duration-300"
+                    aria-label={`View ${project.title} source code on GitHub`}
+                  >
+                    <Github className="w-4 h-4" />
+                    Code
+                  </a>
+                  <a
+                    href={project.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-sm text-muted-foreground hover:text-accent transition-colors duration-300"
+                    aria-label={`View ${project.title} live demo`}
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                    Live
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );
