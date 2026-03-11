@@ -10,30 +10,30 @@ const Skills = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
-  const filteredSkills =
-    activeCategory === "All"
-      ? skills
-      : skills.filter((s) => s.category === activeCategory);
+  const filtered = activeCategory === "All"
+    ? skills
+    : skills.filter((s) => s.category === activeCategory);
 
   return (
-    <section id="skills" className="py-24 relative">
-      <div className="max-w-6xl mx-auto px-6">
+    <section id="skills" className="section-padding bg-background border-b border-gray-100">
+      <div className="container-wide mx-auto">
         <SectionHeading
-          title="Technical"
-          highlight="Skills"
-          subtitle="Tools and technologies I use to bring ideas to life"
+          label="Tech Stack"
+          title="Skills &"
+          highlight="Tools"
+          subtitle="Technologies I use to build products from idea to deployment."
         />
 
-        {/* Category Tabs */}
-        <div className="flex flex-wrap justify-center gap-3 mb-12">
+        {/* Category filter */}
+        <div className="flex flex-wrap gap-2 mb-10">
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`px-5 py-2 rounded-full font-inter text-sm font-medium transition-all duration-300 ${
+              className={`px-4 py-1.5 rounded-full font-inter text-sm font-medium transition-all duration-200 ${
                 activeCategory === cat
-                  ? "bg-gradient-to-r from-primary to-accent text-white shadow-lg shadow-primary/20"
-                  : "glass-card text-muted-foreground hover:text-foreground hover:border-primary/30"
+                  ? "bg-primary text-white shadow-sm"
+                  : "bg-white border border-gray-200 text-muted-foreground hover:border-gray-300 hover:text-foreground"
               }`}
             >
               {cat}
@@ -41,44 +41,36 @@ const Skills = () => {
           ))}
         </div>
 
-        {/* Skills Grid */}
-        <div ref={ref} className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
-          {filteredSkills.map((skill, index) => (
+        {/* Grid */}
+        <motion.div
+          ref={ref}
+          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3"
+        >
+          {filtered.map((skill, index) => (
             <motion.div
               key={skill.name}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-              transition={{ duration: 0.5, delay: index * 0.06 }}
-              className="glass-card glass-card-hover rounded-xl flex flex-col items-center justify-center p-6 group relative overflow-hidden"
+              initial={{ opacity: 0, y: 12 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.4, delay: index * 0.04, ease: [0.22, 1, 0.36, 1] }}
+              className="card-minimal group flex flex-col items-center gap-3 p-5 bg-white"
             >
-              {/* Glow orb on hover */}
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-              {/* Logo */}
-              <div className="w-14 h-14 mb-4 flex items-center justify-center relative z-10">
+              <div className="w-10 h-10 flex items-center justify-center">
                 <img
                   src={skill.logo}
                   alt={`${skill.name} logo`}
-                  className="w-full h-full object-contain"
+                  className="w-full h-full object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
                   loading="lazy"
-                  onError={(e) => {
-                    e.currentTarget.style.display = "none";
-                  }}
+                  width={40}
+                  height={40}
+                  onError={(e) => { e.currentTarget.style.display = "none"; }}
                 />
               </div>
-
-              {/* Skill Name */}
-              <p className="text-foreground text-sm font-inter font-medium text-center relative z-10 group-hover:text-primary transition-colors duration-300">
+              <p className="font-inter text-xs font-medium text-muted-foreground group-hover:text-foreground text-center transition-colors duration-200">
                 {skill.name}
               </p>
-
-              {/* Category badge — small */}
-              <span className="mt-2 text-[10px] font-mono text-muted-foreground/60 uppercase tracking-wider relative z-10">
-                {skill.category}
-              </span>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

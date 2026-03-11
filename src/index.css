@@ -2,227 +2,286 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ===============================
-   🌍 International Premium Portfolio — Noir + Teal + Gold
-   Ultra-modern, luxurious, award-worthy design system
-   =============================== */
+/* =============================================
+   ✦ Minimal · Elegant · Professional
+   Light Mode Design System
+   ============================================= */
 
 @layer base {
   :root {
-    /* Background & Foreground */
-    --background: 220 15% 3.5%;       /* True noir (#08090d) */
-    --foreground: 40 10% 92%;          /* Warm white (#ece8e1) */
+    /* Backgrounds */
+    --background: 0 0% 98%;          /* #FAFAFA */
+    --surface: 0 0% 100%;            /* #FFFFFF card surface */
+    --surface-2: 210 20% 97%;        /* #F3F6FA subtle alt surface */
+
+    /* Foreground */
+    --foreground: 222 47% 11%;       /* #111827 primary text */
+    --foreground-2: 220 9% 46%;      /* #6B7280 secondary text */
+    --foreground-3: 220 13% 69%;     /* #9CA3AF muted text */
+
+    /* Accent — Muted Indigo */
+    --primary: 244 55% 58%;          /* #4F46E5 indigo */
+    --primary-foreground: 0 0% 100%;
+    --primary-light: 244 100% 97%;   /* #EEF2FF indigo tint */
+    --primary-muted: 244 55% 58% / 0.12; /* soft indigo overlay */
+
+    /* Accent 2 — Warm slate for secondary actions */
+    --accent: 244 55% 58%;
+    --accent-foreground: 0 0% 100%;
+
+    /* Borders */
+    --border: 220 13% 91%;           /* #E5E7EB */
+    --border-light: 220 13% 95%;     /* Even subtler border */
 
     /* Cards & Popovers */
-    --card: 220 12% 6%;
-    --card-foreground: 40 10% 92%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
 
-    --popover: 220 12% 6%;
-    --popover-foreground: 40 10% 92%;
+    /* UI States */
+    --secondary: 210 20% 97%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 210 16% 93%;
+    --muted-foreground: 220 9% 46%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
 
-    /* Primary — Electric Teal */
-    --primary: 160 84% 39%;            /* #0ea370 → vivid teal */
-    --primary-foreground: 220 15% 4%;
+    /* Input */
+    --input: 220 13% 91%;
+    --ring: 244 55% 58%;
 
-    /* Accent — Warm Gold */
-    --accent: 44 95% 63%;              /* #f5c542 → warm gold */
-    --accent-foreground: 220 15% 4%;
-
-    /* Secondary — Dark Surface */
-    --secondary: 220 10% 10%;
-    --secondary-foreground: 40 10% 85%;
-
-    /* Muted */
-    --muted: 220 8% 15%;
-    --muted-foreground: 220 8% 50%;
-
-    /* Destructive */
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 98%;
-
-    /* Borders & Input */
-    --border: 220 8% 13%;
-    --input: 220 8% 13%;
-    --ring: 160 84% 39%;
-
-    --radius: 0.75rem;
-
-    /* Custom tokens */
-    --glass-bg: rgba(255, 255, 255, 0.025);
-    --glass-border: rgba(255, 255, 255, 0.06);
-    --transition-smooth: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    --radius: 0.625rem;
   }
 }
 
-/* ===============================
-   🧩 Base Layer
-   =============================== */
+/* =============================================
+   Base Styles
+   ============================================= */
 
 @layer base {
   * {
     @apply border-border;
+    box-sizing: border-box;
   }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply bg-background text-foreground;
-    scroll-behavior: smooth;
+    font-family: 'Inter', 'DM Sans', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    cursor: none;
+    line-height: 1.6;
   }
-  a, button, [role="button"] {
-    cursor: none;
+
+  ::selection {
+    background: hsl(244 55% 58% / 0.15);
+    color: hsl(244 55% 40%);
   }
 }
 
-/* ===============================
-   💎 Glass Utilities
-   =============================== */
+/* =============================================
+   Scrollbar — minimal
+   ============================================= */
 
-.glass-card {
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-}
-
-.glass-card-hover {
-  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.glass-card-hover:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(14, 163, 112, 0.25);
-  box-shadow:
-    0 8px 40px rgba(14, 163, 112, 0.06),
-    0 0 0 1px rgba(14, 163, 112, 0.08);
-  transform: translateY(-2px);
-}
-
-/* ===============================
-   🌈 Gradient Utilities
-   =============================== */
-
-.gradient-text {
-  background: linear-gradient(135deg, hsl(160 84% 50%), hsl(44 95% 63%));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.gradient-border {
-  position: relative;
-}
-
-.gradient-border::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1px;
-  background: linear-gradient(135deg, hsl(160 84% 39% / 0.4), hsl(44 95% 63% / 0.4));
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
-}
-
-/* ===============================
-   🧭 Scrollbar
-   =============================== */
-
-::-webkit-scrollbar {
-  width: 4px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
-  background: hsl(160 84% 39% / 0.4);
+  background: hsl(220 13% 85%);
   border-radius: 10px;
 }
-::-webkit-scrollbar-thumb:hover {
-  background: hsl(160 84% 39% / 0.7);
+::-webkit-scrollbar-thumb:hover { background: hsl(244 55% 70%); }
+
+/* =============================================
+   Typography
+   ============================================= */
+
+.text-display {
+  font-family: 'DM Sans', 'Inter', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
 }
 
-/* ===============================
-   🖱️ Premium Magnetic Cursor
-   =============================== */
+.text-heading {
+  font-family: 'DM Sans', 'Inter', sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
 
-.cursor-dot {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 8px;
-  height: 8px;
+.text-body {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  line-height: 1.7;
+}
+
+/* =============================================
+   Cards
+   ============================================= */
+
+.card-minimal {
+  background: white;
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.card-minimal:hover {
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+  border-color: hsl(var(--border-light));
+  transform: translateY(-1px);
+}
+
+/* =============================================
+   Buttons
+   ============================================= */
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.5rem;
   background: hsl(var(--primary));
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  mix-blend-mode: difference;
-  transition: width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
+  color: white;
+  border-radius: var(--radius);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  text-decoration: none;
 }
 
-.cursor-ring {
-  position: fixed;
-  top: 0;
+.btn-primary:hover {
+  background: hsl(244 55% 52%);
+  box-shadow: 0 4px 16px hsl(244 55% 58% / 0.25);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.5rem;
+  background: white;
+  color: hsl(var(--foreground));
+  border-radius: var(--radius);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: 1px solid hsl(var(--border));
+  transition: all 0.2s ease;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn-secondary:hover {
+  background: hsl(var(--surface-2));
+  border-color: hsl(var(--foreground-3));
+}
+
+/* =============================================
+   Section layouts
+   ============================================= */
+
+.section-padding {
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+}
+
+.container-narrow {
+  max-width: 680px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.container-wide {
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+/* =============================================
+   Section Dividers
+   ============================================= */
+
+.section-divider {
+  border: none;
+  border-top: 1px solid hsl(var(--border));
+  margin: 0;
+}
+
+/* =============================================
+   Tag / Badge
+   ============================================= */
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  background: hsl(var(--primary-light));
+  color: hsl(244 55% 45%);
+  border-radius: 100px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: 0.01em;
+}
+
+.tag-neutral {
+  background: hsl(var(--surface-2));
+  color: hsl(var(--foreground-2));
+}
+
+/* =============================================
+   Timeline
+   ============================================= */
+
+.timeline-line {
+  position: absolute;
   left: 0;
-  width: 40px;
-  height: 40px;
-  border: 1.5px solid hsl(var(--primary) / 0.4);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9998;
-  transition: width 0.4s cubic-bezier(0.22,1,0.36,1), height 0.4s cubic-bezier(0.22,1,0.36,1), border-color 0.3s ease;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: hsl(var(--border));
 }
 
-.cursor-dot.hovering {
-  width: 60px;
-  height: 60px;
-  background: hsl(var(--primary) / 0.1);
-  border: 1.5px solid hsl(var(--primary));
-}
-
-.cursor-ring.hovering {
+.timeline-dot {
+  position: absolute;
+  left: -5px;
+  top: 1.75rem;
   width: 12px;
   height: 12px;
-  border-color: hsl(var(--accent));
+  border-radius: 50%;
+  background: white;
+  border: 2px solid hsl(var(--primary));
 }
 
-/* ===============================
-   ✨ Animated Background Mesh
-   =============================== */
+/* =============================================
+   Accent line decoration
+   ============================================= */
 
-.animated-gradient-bg {
-  background:
-    radial-gradient(ellipse at 15% 50%, hsl(160 84% 39% / 0.07) 0%, transparent 55%),
-    radial-gradient(ellipse at 85% 20%, hsl(44 95% 63% / 0.05) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 85%, hsl(160 60% 30% / 0.04) 0%, transparent 50%),
-    hsl(var(--background));
+.accent-line {
+  width: 2.5rem;
+  height: 3px;
+  background: hsl(var(--primary));
+  border-radius: 10px;
 }
 
-/* ===============================
-   🔮 Glow Effects
-   =============================== */
+/* =============================================
+   Focus styles — accessibility
+   ============================================= */
 
-.glow-teal {
-  box-shadow: 0 0 20px hsl(160 84% 39% / 0.15), 0 0 60px hsl(160 84% 39% / 0.04);
-}
-
-.glow-teal-hover:hover {
-  box-shadow: 0 0 30px hsl(160 84% 39% / 0.25), 0 0 80px hsl(160 84% 39% / 0.08);
-}
-
-/* ===============================
-   🌟 Noise Grain Overlay
-   =============================== */
-
-.noise-overlay::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: 9990;
-  pointer-events: none;
-  opacity: 0.015;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+:focus-visible {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 3px;
+  border-radius: 4px;
 }

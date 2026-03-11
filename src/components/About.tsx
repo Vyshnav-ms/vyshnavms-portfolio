@@ -2,91 +2,92 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import SectionHeading from "./SectionHeading";
 
+const facts = [
+  { label: "Role", value: "Full Stack Developer" },
+  { label: "Location", value: "Kerala, India" },
+  { label: "Education", value: "MCA — LEAD College, Palakkad" },
+  { label: "Focus", value: "React · Django · AI" },
+];
+
 const About = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section id="about" className="min-h-screen flex items-center py-24">
-      <div className="container mx-auto px-6">
-        <SectionHeading
-          title="About"
-          highlight="Me"
-          subtitle="Crafting digital experiences at the intersection of design and technology"
-        />
+    <section id="about" className="section-padding border-b border-gray-100 bg-white">
+      <div className="container-wide mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
-            {/* Text Content */}
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="space-y-6"
-            >
-              <p className="font-inter text-lg text-muted-foreground leading-relaxed">
-                I'm <span className="text-primary font-semibold">Vyshnav</span>, a developer focused on crafting
-                responsive and intelligent web applications. I combine logical precision with design intuition
-                to build user experiences that feel fluid and natural.
+          {/* Text */}
+          <motion.div
+            ref={ref}
+            initial={{ opacity: 0, x: -24 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <SectionHeading
+              label="About Me"
+              title="Building things"
+              highlight="that matter"
+              subtitle="Developer focused on clean code, thoughtful design, and real-world impact."
+            />
+
+            <div className="space-y-4 font-inter text-base text-muted-foreground leading-relaxed">
+              <p>
+                I'm <span className="font-medium text-foreground">Vyshnav M S</span>, a Full Stack Developer
+                passionate about crafting web experiences that are not just functional — but delightful.
               </p>
-
-              <p className="font-inter text-lg text-muted-foreground leading-relaxed">
-                With expertise spanning from frontend frameworks like{" "}
-                <span className="text-primary font-semibold">React</span> to backend systems with{" "}
-                <span className="text-primary font-semibold">Django</span>, I bridge the gap between elegant design
-                and robust functionality. My passion extends into{" "}
-                <span className="text-accent font-semibold">AI</span> and{" "}
-                <span className="text-accent font-semibold">Cybersecurity</span>, where I explore the intersection
-                of innovation and protection.
+              <p>
+                My expertise spans modern frontend with <span className="font-medium text-foreground">React & TypeScript</span>{" "}
+                and robust backend systems with <span className="font-medium text-foreground">Django & Python</span>.
+                I'm increasingly drawn to the intersection of AI and product development.
               </p>
-
-              <p className="font-inter text-lg text-muted-foreground leading-relaxed">
-                Every project is an opportunity to push boundaries and create something{" "}
-                <span className="gradient-text font-semibold">meaningful</span>.
+              <p>
+                I approach every project with a product mindset — I care deeply about{" "}
+                <span className="font-medium text-foreground">user experience</span>,{" "}
+                <span className="font-medium text-foreground">code quality</span>, and{" "}
+                <span className="font-medium text-foreground">performance</span>.
               </p>
-            </motion.div>
+            </div>
+          </motion.div>
 
-            {/* Card — Quick Facts */}
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="relative group"
-            >
-              <div className="glass-card glass-card-hover rounded-2xl p-8 relative overflow-hidden">
-                {/* Gradient glow on hover */}
-                <div className="absolute -top-20 -right-20 w-40 h-40 bg-primary/10 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-                <div className="absolute -bottom-20 -left-20 w-40 h-40 bg-accent/10 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-                
-                <div className="relative z-10">
-                  <h3 className="font-poppins font-bold text-2xl gradient-text mb-6">
-                    Quick Facts
-                  </h3>
-                  <ul className="space-y-4 font-inter text-muted-foreground">
-                    {[
-                      "Full Stack Development",
-                      "AI & Prompt Engineering",
-                      "Cybersecurity Enthusiast",
-                      "Problem Solver & Innovator",
-                    ].map((item, i) => (
-                      <li key={i} className="flex items-center gap-3 group/item">
-                        <span className="w-2 h-2 rounded-full bg-gradient-to-r from-primary to-accent flex-shrink-0" />
-                        <span className="group-hover/item:text-foreground transition-colors duration-300">
-                          {item}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
+          {/* Facts card */}
+          <motion.div
+            initial={{ opacity: 0, x: 24 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <div className="card-minimal p-8 space-y-0 divide-y divide-gray-50">
+              {facts.map((fact, i) => (
+                <div key={fact.label} className="flex justify-between items-center py-4">
+                  <span className="font-inter text-sm text-muted-foreground">{fact.label}</span>
+                  <span className="font-inter text-sm font-medium text-foreground text-right max-w-[60%]">
+                    {fact.value}
+                  </span>
                 </div>
+              ))}
+
+              <div className="pt-5 flex gap-3">
+                <a
+                  href="https://github.com/Vyshnav-ms"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-secondary text-xs py-2 px-4 flex-1 justify-center"
+                >
+                  GitHub
+                </a>
+                <a
+                  href="https://linkedin.com/in/vyshnav-m-s"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-primary text-xs py-2 px-4 flex-1 justify-center"
+                >
+                  LinkedIn
+                </a>
               </div>
-            </motion.div>
-          </div>
-        </motion.div>
+            </div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

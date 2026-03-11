@@ -2,22 +2,24 @@ import type { Config } from "tailwindcss";
 
 export default {
   darkMode: ["class"],
-  content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
+  content: [
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   prefix: "",
   theme: {
     container: {
       center: true,
-      padding: "2rem",
-      screens: {
-        "2xl": "1400px",
-      },
+      padding: "1.5rem",
+      screens: { "2xl": "1200px" },
     },
     extend: {
       fontFamily: {
-        'inter': ['Inter', 'sans-serif'],
-        'dm-sans': ['"DM Sans"', 'sans-serif'],
-        'poppins': ['Poppins', 'sans-serif'],
-        'mono': ['JetBrains Mono', 'monospace'],
+        inter: ["Inter", "system-ui", "sans-serif"],
+        "dm-sans": ['"DM Sans"', "system-ui", "sans-serif"],
+        mono: ['"JetBrains Mono"', "Menlo", "monospace"],
       },
 
       colors: {
@@ -55,86 +57,53 @@ export default {
           foreground: "hsl(var(--card-foreground))",
         },
       },
+
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+
+      boxShadow: {
+        card: "0 1px 4px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.04)",
+        "card-hover": "0 4px 24px rgba(0,0,0,0.08)",
+        subtle: "0 1px 3px rgba(0,0,0,0.05)",
+        elevated: "0 8px 32px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.04)",
+      },
+
       keyframes: {
-        "fade-in-up": {
-          "0%": {
-            opacity: "0",
-            transform: "translateY(20px)"
-          },
-          "100%": {
-            opacity: "1",
-            transform: "translateY(0)"
-          }
+        "fade-up": {
+          "0%": { opacity: "0", transform: "translateY(16px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
         },
-        "fade-in-down": {
-          "0%": {
-            opacity: "0",
-            transform: "translateY(-20px)"
-          },
-          "100%": {
-            opacity: "1",
-            transform: "translateY(0)"
-          }
+        "fade-in": {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
         },
-        "slide-in-right": {
-          "0%": {
-            opacity: "0",
-            transform: "translateX(100px)"
-          },
-          "100%": {
-            opacity: "1",
-            transform: "translateX(0)"
-          }
+        "slide-right": {
+          "0%": { opacity: "0", transform: "translateX(-16px)" },
+          "100%": { opacity: "1", transform: "translateX(0)" },
         },
-        "glare-sweep": {
-          "0%": {
-            transform: "translateX(-100%)"
-          },
-          "100%": {
-            transform: "translateX(100%)"
-          }
+        "loader-spin": {
+          "0%": { transform: "rotate(0deg)" },
+          "100%": { transform: "rotate(360deg)" },
         },
-        "gradient-shift": {
-          "0%, 100%": {
-            backgroundPosition: "0% 50%"
-          },
-          "50%": {
-            backgroundPosition: "100% 50%"
-          }
-        },
-        "glow-pulse": {
-          "0%, 100%": {
-            opacity: "0.4",
-            transform: "scale(1)"
-          },
-          "50%": {
-            opacity: "0.8",
-            transform: "scale(1.05)"
-          }
-        },
-        "float": {
-          "0%, 100%": {
-            transform: "translateY(0px)"
-          },
-          "50%": {
-            transform: "translateY(-10px)"
-          }
+        "pulse-soft": {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0.5" },
         },
       },
+
       animation: {
-        "fade-in-up": "fade-in-up 0.6s ease-out",
-        "fade-in-down": "fade-in-down 0.5s ease-out",
-        "slide-in-right": "slide-in-right 0.7s ease-out",
-        "glare-sweep": "glare-sweep 0.6s ease-in-out",
-        'spin-slow': 'spin 1.2s linear infinite',
-        "gradient-shift": "gradient-shift 8s ease infinite",
-        "glow-pulse": "glow-pulse 3s ease-in-out infinite",
-        "float": "float 6s ease-in-out infinite",
+        "fade-up": "fade-up 0.5s cubic-bezier(0.22,1,0.36,1) forwards",
+        "fade-in": "fade-in 0.4s ease forwards",
+        "slide-right": "slide-right 0.5s cubic-bezier(0.22,1,0.36,1) forwards",
+        "loader-spin": "loader-spin 0.8s linear infinite",
+        "pulse-soft": "pulse-soft 1.5s ease-in-out infinite",
+      },
+
+      transitionTimingFunction: {
+        expo: "cubic-bezier(0.22, 1, 0.36, 1)",
       },
     },
   },
