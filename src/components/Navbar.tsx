@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
+import ThemeToggle from "./ThemeToggle";
 
 const navLinks = [
   { name: "About", href: "#about" },
@@ -56,11 +57,17 @@ const Navbar = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-white/90 backdrop-blur-md border-b border-gray-100 shadow-subtle" : "bg-white/70 backdrop-blur-sm"
+        scrolled
+          ? "bg-[hsl(var(--background))]/90 backdrop-blur-md border-b border-[hsl(var(--border))] shadow-[0_1px_0_hsl(var(--border))]"
+          : "bg-[hsl(var(--background))]/80 backdrop-blur-sm"
       }`}
       role="banner"
     >
-      <nav className="container-wide mx-auto flex items-center justify-between h-16" role="navigation" aria-label="Main navigation">
+      <nav
+        className="container-wide mx-auto flex items-center justify-between h-16"
+        role="navigation"
+        aria-label="Main navigation"
+      >
         {/* Logo */}
         <a
           href="#home"
@@ -82,35 +89,39 @@ const Navbar = () => {
                 onClick={(e) => scrollTo(e, link.href)}
                 className={`relative px-3 py-1.5 rounded-md font-inter text-sm transition-all duration-200 ${
                   isActive
-                    ? "text-primary font-medium bg-indigo-50"
-                    : "text-muted-foreground hover:text-foreground hover:bg-gray-50"
+                    ? "text-primary font-medium bg-[hsl(var(--primary-light))]"
+                    : "text-muted-foreground hover:text-foreground hover:bg-[hsl(var(--surface-2))]"
                 }`}
               >
                 {link.name}
               </a>
             );
           })}
+        </div>
 
-          <a
-            href="mailto:vyshnams1@gmail.com"
-            className="btn-primary ml-3 text-sm py-1.5 px-4"
-          >
+        {/* Right side: toggle + CTA */}
+        <div className="hidden md:flex items-center gap-3">
+          <ThemeToggle />
+          <a href="mailto:vyshnams1@gmail.com" className="btn-primary text-sm py-1.5 px-4">
             Hire Me
           </a>
         </div>
 
-        {/* Mobile hamburger */}
-        <button
-          onClick={() => setMenuOpen(!menuOpen)}
-          className="md:hidden p-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-gray-50 transition-colors"
-          aria-label={menuOpen ? "Close menu" : "Open menu"}
-          aria-expanded={menuOpen}
-        >
-          {menuOpen ? <X size={20} /> : <Menu size={20} />}
-        </button>
+        {/* Mobile */}
+        <div className="md:hidden flex items-center gap-2">
+          <ThemeToggle />
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="p-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-[hsl(var(--surface-2))] transition-colors"
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={menuOpen}
+          >
+            {menuOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
       </nav>
 
-      {/* Mobile menu */}
+      {/* Mobile dropdown */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
@@ -118,7 +129,7 @@ const Navbar = () => {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25, ease: "easeInOut" }}
-            className="md:hidden border-t border-gray-100 bg-white overflow-hidden"
+            className="md:hidden border-t border-[hsl(var(--border))] bg-[hsl(var(--background))] overflow-hidden"
           >
             <div className="px-4 py-4 flex flex-col gap-1">
               {navLinks.map((link) => {
@@ -129,7 +140,9 @@ const Navbar = () => {
                     href={link.href}
                     onClick={(e) => scrollTo(e, link.href)}
                     className={`px-3 py-2 rounded-md font-inter text-sm transition-colors ${
-                      isActive ? "text-primary bg-indigo-50 font-medium" : "text-muted-foreground hover:text-foreground"
+                      isActive
+                        ? "text-primary bg-[hsl(var(--primary-light))] font-medium"
+                        : "text-muted-foreground hover:text-foreground"
                     }`}
                   >
                     {link.name}

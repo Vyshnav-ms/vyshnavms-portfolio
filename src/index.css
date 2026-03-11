@@ -3,55 +3,81 @@
 @tailwind utilities;
 
 /* =============================================
-   ✦ Minimal · Elegant · Professional
-   Light Mode Design System
+   ✦ Minimal Professional Portfolio
+   Light + Dark Mode Design System
    ============================================= */
 
 @layer base {
   :root {
-    /* Backgrounds */
-    --background: 0 0% 98%;          /* #FAFAFA */
-    --surface: 0 0% 100%;            /* #FFFFFF card surface */
-    --surface-2: 210 20% 97%;        /* #F3F6FA subtle alt surface */
+    /* Light mode */
+    --background: 0 0% 98%;
+    --surface: 0 0% 100%;
+    --surface-2: 210 20% 97%;
 
-    /* Foreground */
-    --foreground: 222 47% 11%;       /* #111827 primary text */
-    --foreground-2: 220 9% 46%;      /* #6B7280 secondary text */
-    --foreground-3: 220 13% 69%;     /* #9CA3AF muted text */
+    --foreground: 222 47% 11%;
+    --foreground-2: 220 9% 46%;
+    --foreground-3: 220 13% 69%;
 
-    /* Accent — Muted Indigo */
-    --primary: 244 55% 58%;          /* #4F46E5 indigo */
+    --primary: 244 55% 58%;
     --primary-foreground: 0 0% 100%;
-    --primary-light: 244 100% 97%;   /* #EEF2FF indigo tint */
-    --primary-muted: 244 55% 58% / 0.12; /* soft indigo overlay */
+    --primary-light: 244 100% 97%;
 
-    /* Accent 2 — Warm slate for secondary actions */
     --accent: 244 55% 58%;
     --accent-foreground: 0 0% 100%;
 
-    /* Borders */
-    --border: 220 13% 91%;           /* #E5E7EB */
-    --border-light: 220 13% 95%;     /* Even subtler border */
+    --border: 220 13% 91%;
+    --border-light: 220 13% 95%;
 
-    /* Cards & Popovers */
     --card: 0 0% 100%;
     --card-foreground: 222 47% 11%;
     --popover: 0 0% 100%;
     --popover-foreground: 222 47% 11%;
 
-    /* UI States */
     --secondary: 210 20% 97%;
     --secondary-foreground: 222 47% 11%;
     --muted: 210 16% 93%;
     --muted-foreground: 220 9% 46%;
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
-
-    /* Input */
     --input: 220 13% 91%;
     --ring: 244 55% 58%;
 
     --radius: 0.625rem;
+  }
+
+  /* ✦ Dark Mode */
+  .dark {
+    --background: 222 47% 6%;          /* #0d1117 deep navy */
+    --surface: 222 40% 9%;             /* #111827 card bg */
+    --surface-2: 222 35% 12%;
+
+    --foreground: 210 40% 92%;         /* #E2EAF4 */
+    --foreground-2: 215 20% 60%;       /* #8B9BB4 */
+    --foreground-3: 215 15% 45%;
+
+    --primary: 244 70% 68%;            /* slightly lighter indigo in dark */
+    --primary-foreground: 0 0% 100%;
+    --primary-light: 244 55% 15%;      /* dark indigo tint for bg highlights */
+
+    --accent: 244 70% 68%;
+    --accent-foreground: 0 0% 100%;
+
+    --border: 222 30% 18%;
+    --border-light: 222 25% 15%;
+
+    --card: 222 40% 9%;
+    --card-foreground: 210 40% 92%;
+    --popover: 222 40% 9%;
+    --popover-foreground: 210 40% 92%;
+
+    --secondary: 222 35% 12%;
+    --secondary-foreground: 210 40% 92%;
+    --muted: 222 30% 15%;
+    --muted-foreground: 215 20% 55%;
+    --destructive: 0 65% 55%;
+    --destructive-foreground: 0 0% 100%;
+    --input: 222 30% 18%;
+    --ring: 244 70% 68%;
   }
 }
 
@@ -60,14 +86,9 @@
    ============================================= */
 
 @layer base {
-  * {
-    @apply border-border;
-    box-sizing: border-box;
-  }
+  * { @apply border-border; box-sizing: border-box; }
 
-  html {
-    scroll-behavior: smooth;
-  }
+  html { scroll-behavior: smooth; }
 
   body {
     @apply bg-background text-foreground;
@@ -75,65 +96,45 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     line-height: 1.6;
+    transition: background-color 0.4s ease, color 0.4s ease;
   }
 
   ::selection {
     background: hsl(244 55% 58% / 0.15);
-    color: hsl(244 55% 40%);
+    color: hsl(244 55% 45%);
   }
 }
 
 /* =============================================
-   Scrollbar — minimal
+   Scrollbar
    ============================================= */
 
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb {
-  background: hsl(220 13% 85%);
-  border-radius: 10px;
-}
+::-webkit-scrollbar-thumb { background: hsl(220 13% 85%); border-radius: 10px; }
+.dark ::-webkit-scrollbar-thumb { background: hsl(222 30% 25%); }
 ::-webkit-scrollbar-thumb:hover { background: hsl(244 55% 70%); }
-
-/* =============================================
-   Typography
-   ============================================= */
-
-.text-display {
-  font-family: 'DM Sans', 'Inter', sans-serif;
-  font-weight: 700;
-  letter-spacing: -0.03em;
-  line-height: 1.1;
-}
-
-.text-heading {
-  font-family: 'DM Sans', 'Inter', sans-serif;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  line-height: 1.25;
-}
-
-.text-body {
-  font-family: 'Inter', sans-serif;
-  font-weight: 400;
-  line-height: 1.7;
-}
 
 /* =============================================
    Cards
    ============================================= */
 
 .card-minimal {
-  background: white;
+  background: hsl(var(--card));
   border: 1px solid hsl(var(--border));
   border-radius: var(--radius);
-  transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  transition: box-shadow 0.25s ease, border-color 0.25s ease, transform 0.25s ease, background-color 0.4s ease;
 }
 
 .card-minimal:hover {
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
-  border-color: hsl(var(--border-light));
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
+  border-color: hsl(244 55% 58% / 0.25);
   transform: translateY(-1px);
+}
+
+.dark .card-minimal:hover {
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+  border-color: hsl(244 70% 68% / 0.3);
 }
 
 /* =============================================
@@ -159,7 +160,7 @@
 
 .btn-primary:hover {
   background: hsl(244 55% 52%);
-  box-shadow: 0 4px 16px hsl(244 55% 58% / 0.25);
+  box-shadow: 0 4px 16px hsl(244 55% 58% / 0.3);
 }
 
 .btn-secondary {
@@ -167,7 +168,7 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.625rem 1.5rem;
-  background: white;
+  background: hsl(var(--card));
   color: hsl(var(--foreground));
   border-radius: var(--radius);
   font-family: 'Inter', sans-serif;
@@ -185,7 +186,7 @@
 }
 
 /* =============================================
-   Section layouts
+   Sections & Layout
    ============================================= */
 
 .section-padding {
@@ -210,17 +211,7 @@
 }
 
 /* =============================================
-   Section Dividers
-   ============================================= */
-
-.section-divider {
-  border: none;
-  border-top: 1px solid hsl(var(--border));
-  margin: 0;
-}
-
-/* =============================================
-   Tag / Badge
+   Tags
    ============================================= */
 
 .tag {
@@ -233,55 +224,77 @@
   font-size: 0.75rem;
   font-weight: 500;
   font-family: 'Inter', sans-serif;
-  letter-spacing: 0.01em;
+}
+
+.dark .tag {
+  background: hsl(244 55% 15%);
+  color: hsl(244 70% 75%);
 }
 
 .tag-neutral {
   background: hsl(var(--surface-2));
   color: hsl(var(--foreground-2));
+  border: 1px solid hsl(var(--border));
+  border-radius: 0.375rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.2rem 0.6rem;
 }
 
 /* =============================================
    Timeline
    ============================================= */
 
-.timeline-line {
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  background: hsl(var(--border));
-}
-
 .timeline-dot {
   position: absolute;
   left: -5px;
-  top: 1.75rem;
-  width: 12px;
-  height: 12px;
+  top: 6px;
+  width: 11px;
+  height: 11px;
   border-radius: 50%;
-  background: white;
+  background: hsl(var(--card));
   border: 2px solid hsl(var(--primary));
 }
 
 /* =============================================
-   Accent line decoration
-   ============================================= */
-
-.accent-line {
-  width: 2.5rem;
-  height: 3px;
-  background: hsl(var(--primary));
-  border-radius: 10px;
-}
-
-/* =============================================
-   Focus styles — accessibility
+   Focus
    ============================================= */
 
 :focus-visible {
   outline: 2px solid hsl(var(--primary));
   outline-offset: 3px;
   border-radius: 4px;
+}
+
+/* =============================================
+   Dark mode for bg-white / bg-gray- utilities
+   Override static white sections for dark mode
+   ============================================= */
+
+.dark .bg-white {
+  background-color: hsl(var(--card)) !important;
+}
+
+.dark .bg-gray-50 {
+  background-color: hsl(var(--surface-2)) !important;
+}
+
+.dark .border-gray-100,
+.dark .border-gray-200 {
+  border-color: hsl(var(--border)) !important;
+}
+
+.dark .bg-indigo-50 {
+  background-color: hsl(244 55% 15%) !important;
+}
+
+.dark .text-gray-200 {
+  color: hsl(215 15% 30%) !important;
+}
+
+/* Subtle grid pattern adapts to dark */
+.dark .hero-grid {
+  background-image:
+    linear-gradient(to right, rgba(99,102,241,0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(99,102,241,0.06) 1px, transparent 1px) !important;
 }
