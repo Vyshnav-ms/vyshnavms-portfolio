@@ -9,11 +9,13 @@ import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import PageLoader from "@/components/PageLoader";
 import FloatingMusicButton from "@/components/FloatingMusicButton";
+import ScrollProgress from "@/components/ScrollProgress";
 
 const Index = () => {
   return (
     <div className="bg-background text-foreground">
       <PageLoader />
+      <ScrollProgress />
       <Navbar />
       <main>
         <Hero />
