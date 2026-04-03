@@ -3,7 +3,7 @@
 **Full Stack Developer | React · Django · AI Enthusiast**
 
 📍 Kollam, Kerala, India  
-📧 khureshigaming@gmail.com  
+📧 vyshnams1@gmail.com  
 📞 +91 8547776976  
 💻 [GitHub](https://github.com/Vyshnav-ms)  
 💼 [LinkedIn](https://www.linkedin.com/in/vyshnav-m-s)

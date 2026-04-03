@@ -13,7 +13,7 @@ import ScrollProgress from "@/components/ScrollProgress";
 
 const Index = () => {
   return (
-    <div className="bg-background text-foreground">
+    <div style={{ background: "#030712", color: "rgba(200,230,255,0.9)" }}>
       <PageLoader />
       <ScrollProgress />
       <Navbar />

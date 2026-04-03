@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
 
-// Thin animated scroll progress line at the top of the page
 export default function ScrollProgress() {
   const barRef = useRef<HTMLDivElement>(null);
 
@@ -16,11 +15,17 @@ export default function ScrollProgress() {
   }, []);
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-[9999] h-[3px] bg-transparent pointer-events-none">
+    <div className="fixed top-0 left-0 right-0 z-[9999] h-[3px] pointer-events-none"
+         style={{ background: "rgba(6,182,212,0.05)" }}>
       <div
         ref={barRef}
-        className="h-full bg-gradient-to-r from-primary via-indigo-400 to-primary/60 rounded-r-full"
-        style={{ width: "0%", transition: "width 0.08s linear" }}
+        className="h-full rounded-r-full"
+        style={{
+          width: "0%",
+          transition: "width 0.08s linear",
+          background: "linear-gradient(90deg, #06b6d4, #7c3aed, #06b6d4)",
+          boxShadow: "0 0 8px rgba(6,182,212,0.8), 0 0 16px rgba(6,182,212,0.4)",
+        }}
       />
     </div>
   );
