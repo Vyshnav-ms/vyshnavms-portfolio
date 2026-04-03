@@ -1,8 +1,0 @@
-feat: add 3D hero scene with neural network AI theme  
-  
-- Install @react-three/fiber v8 and @react-three/drei for React 18  
-- Add /src/components/three/ with HeroScene, FloatingObjects, ParticleField  
-- HeroScene: animated neural network with nodes, pulses, data particle rain  
-- WebGLFallback and LoadingScreen for graceful degradation  
-- Projects section kept as clean 2D grid  
-- Footer updated to show Three.js in built-with line  
