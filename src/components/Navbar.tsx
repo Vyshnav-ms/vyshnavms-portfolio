@@ -29,8 +29,9 @@ const Navbar = () => {
       allLinks.forEach((link) => {
         const section = document.querySelector(link.href);
         if (section) {
-          const top = (section as HTMLElement).offsetTop - 120;
-          const height = (section as HTMLElement).offsetHeight;
+          const rect = section.getBoundingClientRect();
+          const top = rect.top + scrollY - 120;
+          const height = rect.height;
           if (scrollY >= top && scrollY < top + height) {
             setActiveSection(link.href.slice(1));
           }
@@ -43,11 +44,15 @@ const Navbar = () => {
 
   const scrollTo = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
-    const target = document.querySelector(href);
-    if (target) {
-      window.scrollTo({ top: (target as HTMLElement).offsetTop - 72, behavior: "smooth" });
-    }
     setMenuOpen(false);
+    
+    setTimeout(() => {
+      const target = document.querySelector(href);
+      if (target) {
+        const top = target.getBoundingClientRect().top + window.scrollY - 72;
+        window.scrollTo({ top, behavior: "smooth" });
+      }
+    }, 50);
   };
 
   return (
