@@ -1,6 +1,11 @@
 import { motion, useMotionValue, useSpring, useTransform, useInView } from "framer-motion";
 import { ArrowRight, ChevronDown, Terminal, Zap } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, lazy, Suspense } from "react";
+import WebGLFallback from "./three/WebGLFallback";
+import LoadingScreen from "./three/LoadingScreen";
+
+// Lazy-load the heavy 3D scene so it doesn't block initial paint
+const HeroScene = lazy(() => import("./three/HeroScene"));
 
 // Animated number counter
 function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
@@ -77,6 +82,12 @@ const Hero = () => {
       style={{ background: "#030712" }}
       aria-label="Hero section"
     >
+      {/* ── 3D Background Canvas (lazy, WebGL-guarded) ── */}
+      <WebGLFallback>
+        <Suspense fallback={<LoadingScreen />}>
+          <HeroScene />
+        </Suspense>
+      </WebGLFallback>
       {/* ── Dot grid background ── */}
       <div
         className="absolute inset-0 pointer-events-none"

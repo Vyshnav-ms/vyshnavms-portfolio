@@ -75,7 +75,7 @@ const Footer = () => (
 
       {/* Right side signal */}
       <p className="font-mono text-[10px] text-center sm:text-right" style={{ color: "rgba(200,230,255,0.2)" }}>
-        Built with React · Vite · TypeScript
+        Built with React · Vite · TypeScript · <span style={{ color: "rgba(6,182,212,0.4)" }}>Three.js</span>
       </p>
     </div>
   </footer>
