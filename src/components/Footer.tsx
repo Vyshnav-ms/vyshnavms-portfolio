@@ -1,17 +1,20 @@
 import { Github, Linkedin, Mail } from "lucide-react";
 
+const GOLD = "#c9a84c";
+const GOLD_DIM = "rgba(201,168,76,0.4)";
+
 const Footer = () => (
   <footer
     style={{
-      background: "#030712",
-      borderTop: "1px solid rgba(6,182,212,0.08)",
+      background: "#0a0a0a",
+      borderTop: "1px solid rgba(201,168,76,0.08)",
     }}
   >
-    {/* Top divider glow */}
+    {/* Top gold hairline */}
     <div
-      className="h-[1px] w-full"
       style={{
-        background: "linear-gradient(90deg, transparent, rgba(6,182,212,0.2), rgba(124,58,237,0.15), transparent)",
+        height: "1px",
+        background: "linear-gradient(90deg, transparent, rgba(201,168,76,0.28), rgba(201,168,76,0.1), transparent)",
       }}
     />
 
@@ -19,32 +22,51 @@ const Footer = () => (
       {/* Brand */}
       <div className="flex items-center gap-3">
         <span
-          className="font-orbitron font-black text-lg tracking-wider"
-          style={{ color: "#06b6d4", textShadow: "0 0 12px rgba(6,182,212,0.4)" }}
+          style={{
+            fontFamily: "'Cormorant Garamond', Georgia, serif",
+            fontWeight: 700,
+            fontSize: "1.4rem",
+            letterSpacing: "0.04em",
+            color: GOLD,
+          }}
         >
-          V<span style={{ color: "#a78bfa" }}>MS</span>
+          V<span style={{ color: "rgba(228,221,211,0.5)", fontStyle: "italic" }}>MS</span>
         </span>
-        <div className="w-px h-4" style={{ background: "rgba(6,182,212,0.15)" }} />
-        <p className="font-mono text-xs" style={{ color: "rgba(200,230,255,0.3)" }}>
+        <div style={{ width: "1px", height: "16px", background: "rgba(201,168,76,0.15)" }} />
+        <p
+          style={{
+            fontFamily: "'IBM Plex Mono', monospace",
+            fontSize: "0.72rem",
+            color: "rgba(228,221,211,0.3)",
+          }}
+        >
           © 2026 Vyshnav M S
         </p>
-        <span className="hidden sm:block font-mono text-[10px] px-2 py-0.5 rounded"
-              style={{
-                color: "#10b981",
-                background: "rgba(16,185,129,0.08)",
-                border: "1px solid rgba(16,185,129,0.15)",
-              }}>
-          ONLINE
+        <span
+          style={{
+            fontFamily: "'Barlow Condensed', Inter, sans-serif",
+            fontSize: "0.6rem",
+            letterSpacing: "0.16em",
+            textTransform: "uppercase",
+            color: GOLD_DIM,
+            background: "rgba(201,168,76,0.07)",
+            border: "1px solid rgba(201,168,76,0.14)",
+            padding: "0.15rem 0.5rem",
+            borderRadius: "2px",
+          }}
+          className="hidden sm:block"
+        >
+          Online
         </span>
       </div>
 
       {/* Social links */}
       <div className="flex items-center gap-3">
         {[
-          { Icon: Github, href: "https://github.com/Vyshnav-ms", label: "GitHub", color: "#a78bfa" },
-          { Icon: Linkedin, href: "https://linkedin.com/in/vyshnav-m-s", label: "LinkedIn", color: "#06b6d4" },
-          { Icon: Mail, href: "mailto:vyshnams1@gmail.com", label: "Email", color: "#10b981" },
-        ].map(({ Icon, href, label, color }) => (
+          { Icon: Github, href: "https://github.com/Vyshnav-ms", label: "GitHub" },
+          { Icon: Linkedin, href: "https://linkedin.com/in/vyshnav-m-s", label: "LinkedIn" },
+          { Icon: Mail, href: "mailto:vyshnams1@gmail.com", label: "Email" },
+        ].map(({ Icon, href, label }) => (
           <a
             key={label}
             href={href}
@@ -53,18 +75,18 @@ const Footer = () => (
             aria-label={label}
             className="w-8 h-8 rounded flex items-center justify-center transition-all duration-200"
             style={{
-              color: "rgba(200,230,255,0.3)",
-              background: "rgba(6,182,212,0.04)",
-              border: "1px solid rgba(6,182,212,0.08)",
+              color: "rgba(228,221,211,0.28)",
+              background: "rgba(201,168,76,0.04)",
+              border: "1px solid rgba(201,168,76,0.08)",
             }}
             onMouseEnter={(e) => {
-              (e.currentTarget as HTMLElement).style.color = color;
-              (e.currentTarget as HTMLElement).style.borderColor = `${color}40`;
-              (e.currentTarget as HTMLElement).style.boxShadow = `0 0 10px ${color}30`;
+              (e.currentTarget as HTMLElement).style.color = GOLD;
+              (e.currentTarget as HTMLElement).style.borderColor = "rgba(201,168,76,0.35)";
+              (e.currentTarget as HTMLElement).style.boxShadow = "0 0 10px rgba(201,168,76,0.15)";
             }}
             onMouseLeave={(e) => {
-              (e.currentTarget as HTMLElement).style.color = "rgba(200,230,255,0.3)";
-              (e.currentTarget as HTMLElement).style.borderColor = "rgba(6,182,212,0.08)";
+              (e.currentTarget as HTMLElement).style.color = "rgba(228,221,211,0.28)";
+              (e.currentTarget as HTMLElement).style.borderColor = "rgba(201,168,76,0.08)";
               (e.currentTarget as HTMLElement).style.boxShadow = "none";
             }}
           >
@@ -73,9 +95,16 @@ const Footer = () => (
         ))}
       </div>
 
-      {/* Right side signal */}
-      <p className="font-mono text-[10px] text-center sm:text-right" style={{ color: "rgba(200,230,255,0.2)" }}>
-        Built with React · Vite · TypeScript · <span style={{ color: "rgba(6,182,212,0.4)" }}>Three.js</span>
+      {/* Right side */}
+      <p
+        className="text-center sm:text-right"
+        style={{
+          fontFamily: "'IBM Plex Mono', monospace",
+          fontSize: "0.65rem",
+          color: "rgba(228,221,211,0.18)",
+        }}
+      >
+      <span style={{ color: GOLD_DIM }}>  React · Vite · TypeScript · Three.js</span>
       </p>
     </div>
   </footer>

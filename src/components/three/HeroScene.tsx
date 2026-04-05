@@ -1,114 +1,143 @@
 import { useRef, useEffect } from "react";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Canvas, useFrame } from "@react-three/fiber";
 import { Stars } from "@react-three/drei";
 import * as THREE from "three";
-import FloatingObjects from "./FloatingObjects";
-import ParticleField from "./ParticleField";
 
-// ─── Lighting ─────────────────────────────────────────────────────────────────
+// Camera z=10, fov=60 → visible height ≈ 11.5, width ≈ 20.5 at z=0
 
-function SceneLights() {
-  return (
-    <>
-      <ambientLight intensity={0.15} color="#0a1628" />
-      <pointLight position={[-5, 5, 2]} intensity={2.5} color="#06b6d4" distance={20} decay={2} />
-      <pointLight position={[5, -3, -2]} intensity={2} color="#7c3aed" distance={20} decay={2} />
-      <directionalLight position={[0, 10, 5]} intensity={0.5} color="#c8f5ff" />
-    </>
-  );
+interface ShootingStar {
+  line: THREE.Line;
+  mat: THREE.LineBasicMaterial;
+  startX: number;
+  startY: number;
+  z: number;
+  vx: number;
+  vy: number;
+  speed: number;
+  life: number;
+  maxLife: number;
+  trailLen: number;
 }
 
-// ─── Mouse-reactive camera ────────────────────────────────────────────────────
+function randomStar(): Omit<ShootingStar, "line" | "mat"> {
+  const angle = (-Math.PI / 4) + (Math.random() - 0.5) * 0.6; // mostly down-right
+  return {
+    startX: -12 + Math.random() * 18,
+    startY: 3.5 + Math.random() * 4,
+    z: -1 + Math.random() * 2,
+    vx: Math.cos(angle),
+    vy: Math.sin(angle),
+    speed: 6 + Math.random() * 9,
+    life: Math.random() * 3,   // stagger initial positions
+    maxLife: 2.5 + Math.random() * 2,
+    trailLen: 1.2 + Math.random() * 2.5,
+  };
+}
 
-function CameraRig() {
-  const { camera } = useThree();
-  const mouseX = useRef(0);
-  const mouseY = useRef(0);
-  const targetX = useRef(0);
-  const targetY = useRef(0);
+function ShootingStarField({ count = 10 }: { count?: number }) {
+  const groupRef = useRef<THREE.Group>(null!);
+  const starsRef = useRef<ShootingStar[]>([]);
 
   useEffect(() => {
-    const handleMouse = (e: MouseEvent) => {
-      mouseX.current = (e.clientX / window.innerWidth - 0.5) * 2;
-      mouseY.current = (e.clientY / window.innerHeight - 0.5) * 2;
-    };
-    window.addEventListener("mousemove", handleMouse, { passive: true });
-    return () => window.removeEventListener("mousemove", handleMouse);
-  }, []);
+    const group = groupRef.current;
+    const stars: ShootingStar[] = [];
 
-  useEffect(() => {
-    // Scroll-based camera depth
-    const handleScroll = () => {
-      const scrollProgress = window.scrollY / window.innerHeight;
-      targetY.current = scrollProgress * 2;
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    for (let i = 0; i < count; i++) {
+      const geo = new THREE.BufferGeometry();
+      geo.setAttribute("position", new THREE.BufferAttribute(new Float32Array(6), 3));
 
-  useFrame(({ clock }) => {
-    // Smooth mouse follow (gentle parallax)
-    const eased = 0.03;
-    camera.position.x += (mouseX.current * 0.6 - camera.position.x) * eased;
-    camera.position.y += (-mouseY.current * 0.4 - targetY.current - camera.position.y) * eased;
+      const mat = new THREE.LineBasicMaterial({
+        color: 0xe8c96a,
+        transparent: true,
+        opacity: 0,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
+      });
 
-    // Slow idle sway when not moving
-    const t = clock.getElapsedTime() * 0.08;
-    camera.position.x += Math.sin(t) * 0.003;
-    camera.position.y += Math.cos(t * 0.7) * 0.002;
+      const line = new THREE.Line(geo, mat);
+      line.frustumCulled = false;
+      group.add(line);
 
-    camera.lookAt(0, 0, 0);
+      stars.push({ line, mat, ...randomStar() });
+    }
+
+    starsRef.current = stars;
+    return () => { group.clear(); };
+  }, [count]);
+
+  useFrame((_, delta) => {
+    starsRef.current.forEach((s) => {
+      s.life += delta;
+
+      // Respawn when done
+      if (s.life >= s.maxLife) {
+        const next = randomStar();
+        s.startX  = next.startX;
+        s.startY  = next.startY;
+        s.z       = next.z;
+        s.vx      = next.vx;
+        s.vy      = next.vy;
+        s.speed   = next.speed;
+        s.maxLife = next.maxLife;
+        s.trailLen = next.trailLen;
+        s.life    = 0;
+        s.mat.opacity = 0;
+        return;
+      }
+
+      const t = s.life / s.maxLife;
+
+      // Head position
+      const hx = s.startX + s.vx * s.life * s.speed;
+      const hy = s.startY + s.vy * s.life * s.speed;
+
+      // Tail trails behind by trailLen, but fades in over first 20% of life
+      const trailFade = Math.min(t / 0.2, 1);
+      const tx = hx - s.vx * s.trailLen * trailFade;
+      const ty = hy - s.vy * s.trailLen * trailFade;
+
+      const pos = s.line.geometry.attributes.position as THREE.BufferAttribute;
+      pos.setXYZ(0, tx, ty, s.z);  // tail
+      pos.setXYZ(1, hx, hy, s.z);  // head
+      pos.needsUpdate = true;
+
+      // Fade in quickly, hold, fade out near the end
+      s.mat.opacity = Math.sin(Math.min(t, 1 - t) * Math.PI * 1.4) * 0.9;
+    });
   });
 
-  return null;
+  return <group ref={groupRef} />;
 }
-
-// ─── Inner scene (used inside Canvas) ────────────────────────────────────────
 
 function Scene() {
   return (
     <>
-      <SceneLights />
-      <CameraRig />
-
-      {/* Deep-space star field from Drei */}
+      {/* Deep star field */}
       <Stars
-        radius={80}
-        depth={50}
-        count={3000}
+        radius={100}
+        depth={60}
+        count={3500}
         factor={3}
-        saturation={0.3}
+        saturation={0.1}
         fade
-        speed={0.5}
+        speed={0.3}
       />
-
-      {/* Ambient coloured particle cloud */}
-      <ParticleField count={1500} spread={14} speed={0.025} />
-
-      {/* Animated 3D hero objects */}
-      <FloatingObjects />
+      {/* Shooting stars */}
+      <ShootingStarField count={10} />
     </>
   );
 }
 
-// ─── Exported canvas wrapper ──────────────────────────────────────────────────
-
-/**
- * Full-screen Three.js canvas rendered as the Hero section background.
- * Sits at z-index 0; HTML content overlays on top.
- *
- * Camera starts at z=6 with a narrow FOV for a cinematic feel.
- */
 export default function HeroScene() {
   return (
     <Canvas
-      camera={{ position: [0, 0, 6], fov: 60, near: 0.1, far: 100 }}
+      camera={{ position: [0, 0, 10], fov: 60, near: 0.1, far: 200 }}
       gl={{
-        antialias: true,
+        antialias: false,
         alpha: true,
         powerPreference: "high-performance",
         toneMapping: THREE.ACESFilmicToneMapping,
-        toneMappingExposure: 1.2,
+        toneMappingExposure: 1.0,
       }}
       dpr={[1, 1.5]}
       style={{

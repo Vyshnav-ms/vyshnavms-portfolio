@@ -15,16 +15,18 @@ export default function ScrollProgress() {
   }, []);
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-[9999] h-[3px] pointer-events-none"
-         style={{ background: "rgba(6,182,212,0.05)" }}>
+    <div
+      className="fixed top-0 left-0 right-0 z-[9999] h-[2px] pointer-events-none"
+      style={{ background: "rgba(201,168,76,0.06)" }}
+    >
       <div
         ref={barRef}
         className="h-full rounded-r-full"
         style={{
           width: "0%",
           transition: "width 0.08s linear",
-          background: "linear-gradient(90deg, #06b6d4, #7c3aed, #06b6d4)",
-          boxShadow: "0 0 8px rgba(6,182,212,0.8), 0 0 16px rgba(6,182,212,0.4)",
+          background: "linear-gradient(90deg, #6b5a30, #c9a84c, #e8c96a, #c9a84c)",
+          boxShadow: "0 0 6px rgba(201,168,76,0.6), 0 0 12px rgba(201,168,76,0.25)",
         }}
       />
     </div>

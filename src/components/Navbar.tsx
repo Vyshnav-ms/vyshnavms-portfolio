@@ -2,6 +2,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 
+const GOLD = "#c9a84c";
+const GOLD_DIM = "rgba(201,168,76,0.45)";
+const PLATINUM = "#e4ddd3";
+
 const navLinks = [
   { name: "About", href: "#about" },
   { name: "Education", href: "#education" },
@@ -45,7 +49,6 @@ const Navbar = () => {
   const scrollTo = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     setMenuOpen(false);
-    
     setTimeout(() => {
       const target = document.querySelector(href);
       if (target) {
@@ -59,18 +62,18 @@ const Navbar = () => {
     <motion.header
       initial={{ opacity: 0, y: -12 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
       style={{
         background: scrolled
-          ? "rgba(3,7,18,0.92)"
-          : "rgba(3,7,18,0.7)",
+          ? "rgba(10,10,10,0.94)"
+          : "rgba(10,10,10,0.75)",
         backdropFilter: "blur(20px)",
         WebkitBackdropFilter: "blur(20px)",
         borderBottom: scrolled
-          ? "1px solid rgba(6,182,212,0.15)"
+          ? "1px solid rgba(201,168,76,0.14)"
           : "1px solid transparent",
-        boxShadow: scrolled ? "0 4px 30px rgba(0,0,0,0.5)" : "none",
+        boxShadow: scrolled ? "0 4px 30px rgba(0,0,0,0.6)" : "none",
       }}
       role="banner"
     >
@@ -83,11 +86,18 @@ const Navbar = () => {
         <a
           href="#home"
           onClick={(e) => scrollTo(e, "#home")}
-          className="font-orbitron font-black text-xl tracking-wider transition-all duration-300"
-          style={{ color: "#06b6d4", textShadow: "0 0 15px rgba(6,182,212,0.5)" }}
+          className="transition-all duration-300"
+          style={{
+            fontFamily: "'Cormorant Garamond', Georgia, serif",
+            fontWeight: 700,
+            fontSize: "1.6rem",
+            letterSpacing: "0.04em",
+            color: GOLD,
+            textDecoration: "none",
+          }}
           aria-label="Vyshnav M S — home"
         >
-          V<span style={{ color: "#a78bfa" }}>MS</span>
+          V<span style={{ color: "rgba(228,221,211,0.6)", fontStyle: "italic" }}>MS</span>
         </a>
 
         {/* Desktop links */}
@@ -99,20 +109,25 @@ const Navbar = () => {
                 key={link.name}
                 href={link.href}
                 onClick={(e) => scrollTo(e, link.href)}
-                className="relative px-3 py-1.5 font-orbitron text-[10px] font-600 uppercase tracking-[0.12em] transition-all duration-200"
+                className="relative px-3 py-1.5 transition-all duration-200"
                 style={{
-                  color: isActive ? "#06b6d4" : "rgba(200,230,255,0.55)",
-                  textShadow: isActive ? "0 0 10px rgba(6,182,212,0.5)" : "none",
+                  fontFamily: "'Barlow Condensed', Inter, sans-serif",
+                  fontSize: "0.7rem",
+                  fontWeight: 600,
+                  letterSpacing: "0.16em",
+                  textTransform: "uppercase",
+                  color: isActive ? GOLD : "rgba(228,221,211,0.45)",
+                  textDecoration: "none",
                 }}
               >
                 {link.name}
                 {isActive && (
                   <motion.div
                     layoutId="nav-underline"
-                    className="absolute bottom-0 left-2 right-2 h-[2px] rounded-full"
+                    className="absolute bottom-0 left-2 right-2 rounded-full"
                     style={{
-                      background: "linear-gradient(90deg, #06b6d4, #7c3aed)",
-                      boxShadow: "0 0 6px rgba(6,182,212,0.7)",
+                      height: "1px",
+                      background: `linear-gradient(90deg, ${GOLD}, transparent)`,
                     }}
                   />
                 )}
@@ -125,18 +140,19 @@ const Navbar = () => {
         <div className="hidden md:flex items-center gap-3">
           <a
             href="mailto:vyshnams1@gmail.com"
-            className="btn-primary text-[10px] py-2 px-5"
+            className="btn-gold"
+            style={{ fontSize: "0.65rem", padding: "0.45rem 1.1rem" }}
           >
             Hire Me
           </a>
         </div>
 
-        {/* Mobile */}
+        {/* Mobile hamburger */}
         <div className="md:hidden flex items-center gap-2">
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             className="p-2 rounded-md transition-colors"
-            style={{ color: "rgba(6,182,212,0.8)" }}
+            style={{ color: GOLD_DIM }}
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
           >
@@ -155,8 +171,8 @@ const Navbar = () => {
             transition={{ duration: 0.25, ease: "easeInOut" }}
             className="md:hidden overflow-hidden"
             style={{
-              background: "rgba(3,7,18,0.98)",
-              borderBottom: "1px solid rgba(6,182,212,0.15)",
+              background: "rgba(10,10,10,0.98)",
+              borderBottom: "1px solid rgba(201,168,76,0.12)",
               backdropFilter: "blur(20px)",
             }}
           >
@@ -168,11 +184,16 @@ const Navbar = () => {
                     key={link.name}
                     href={link.href}
                     onClick={(e) => scrollTo(e, link.href)}
-                    className="px-3 py-3 rounded-md font-orbitron text-[10px] uppercase tracking-[0.12em] transition-all duration-200"
+                    className="px-3 py-3 rounded-sm transition-all duration-200"
                     style={{
-                      color: isActive ? "#06b6d4" : "rgba(200,230,255,0.5)",
-                      background: isActive ? "rgba(6,182,212,0.06)" : "transparent",
-                      borderLeft: isActive ? "2px solid #06b6d4" : "2px solid transparent",
+                      fontFamily: "'Barlow Condensed', Inter, sans-serif",
+                      fontSize: "0.72rem",
+                      letterSpacing: "0.16em",
+                      textTransform: "uppercase",
+                      color: isActive ? GOLD : "rgba(228,221,211,0.45)",
+                      background: isActive ? "rgba(201,168,76,0.05)" : "transparent",
+                      borderLeft: isActive ? `1px solid ${GOLD}` : "1px solid transparent",
+                      textDecoration: "none",
                     }}
                   >
                     {link.name}
@@ -181,7 +202,8 @@ const Navbar = () => {
               })}
               <a
                 href="mailto:vyshnams1@gmail.com"
-                className="btn-primary mt-3 justify-center text-[10px] py-3"
+                className="btn-gold mt-3 justify-center"
+                style={{ fontSize: "0.65rem", padding: "0.7rem 1rem" }}
               >
                 Hire Me
               </a>

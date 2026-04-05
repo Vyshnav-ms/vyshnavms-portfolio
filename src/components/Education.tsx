@@ -3,6 +3,11 @@ import { useRef } from "react";
 import SectionHeading from "./SectionHeading";
 import { GraduationCap } from "lucide-react";
 
+const GOLD = "#c9a84c";
+const GOLD_DIM = "rgba(201,168,76,0.4)";
+const PLATINUM = "rgba(228,221,211,0.9)";
+const STEEL = "rgba(228,221,211,0.5)";
+
 const educationData = [
   {
     degree: "Master of Computer Applications (MCA)",
@@ -36,7 +41,7 @@ const Education = () => {
     <section
       id="education"
       className="section-padding section-border-b"
-      style={{ background: "#030712" }}
+      style={{ background: "#0f0f0f" }}
     >
       <div className="container-wide mx-auto">
         <SectionHeading label="Education" title="Academic" highlight="Background" />
@@ -48,79 +53,127 @@ const Education = () => {
               initial={{ opacity: 0, y: 24 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.55, delay: index * 0.14, ease: [0.22, 1, 0.36, 1] }}
-              className="group card-holo overflow-hidden"
+              className="card-metal overflow-hidden"
+              style={{ position: "relative" }}
               whileHover={{ y: -3 }}
             >
-              {/* Left neon accent bar */}
+              {/* Left accent bar */}
               <motion.div
-                className="absolute left-0 top-0 bottom-0 w-[3px] rounded-r-sm"
-                initial={{ scaleY: 0, originY: 0 }}
+                className="absolute left-0 top-0 bottom-0 w-[2px]"
+                initial={{ scaleY: 0, originY: "top" }}
                 animate={isInView ? { scaleY: 1 } : {}}
-                transition={{ duration: 0.5, delay: index * 0.14 + 0.2 }}
+                transition={{ duration: 0.6, delay: index * 0.14 + 0.2 }}
                 style={{
-                  background: "linear-gradient(180deg, #06b6d4, #7c3aed)",
-                  boxShadow: "2px 0 12px rgba(6,182,212,0.3)",
+                  background: `linear-gradient(180deg, ${GOLD}, rgba(201,168,76,0.2))`,
                 }}
               />
 
               <div className="flex gap-5 p-5 sm:p-6 pl-7">
                 {/* Icon */}
                 <motion.div
-                  className="flex-shrink-0 mt-0.5 w-10 h-10 rounded-lg flex items-center justify-center"
+                  className="flex-shrink-0 mt-0.5 w-10 h-10 rounded flex items-center justify-center"
                   style={{
-                    background: "rgba(6,182,212,0.06)",
-                    border: "1px solid rgba(6,182,212,0.15)",
+                    background: "rgba(201,168,76,0.06)",
+                    border: "1px solid rgba(201,168,76,0.15)",
                   }}
-                  whileHover={{ rotate: -8, scale: 1.1 }}
+                  whileHover={{ rotate: -8, scale: 1.08 }}
                   transition={{ type: "spring", stiffness: 400 }}
                 >
-                  <GraduationCap className="w-5 h-5" style={{ color: "#06b6d4" }} />
+                  <GraduationCap className="w-5 h-5" style={{ color: GOLD }} />
                 </motion.div>
 
                 <div className="flex-1 min-w-0">
                   <div className="flex items-start justify-between gap-3 flex-wrap">
-                    <h3 className="font-orbitron font-bold text-sm leading-snug" style={{ color: "rgba(200,230,255,0.9)" }}>
+                    <h3
+                      style={{
+                        fontFamily: "'Inter', sans-serif",
+                        fontWeight: 600,
+                        fontSize: "0.9rem",
+                        lineHeight: 1.3,
+                        color: PLATINUM,
+                      }}
+                    >
                       {edu.degree}
                     </h3>
                     <span
-                      className="font-mono text-[9px] px-2 py-0.5 rounded-full flex-shrink-0"
                       style={{
-                        color: edu.status === "ACTIVE" ? "#10b981" : "rgba(6,182,212,0.6)",
-                        background: edu.status === "ACTIVE" ? "rgba(16,185,129,0.1)" : "rgba(6,182,212,0.06)",
-                        border: `1px solid ${edu.status === "ACTIVE" ? "rgba(16,185,129,0.25)" : "rgba(6,182,212,0.15)"}`,
+                        fontFamily: "'Barlow Condensed', Inter, sans-serif",
+                        fontSize: "0.58rem",
+                        letterSpacing: "0.16em",
+                        textTransform: "uppercase",
+                        padding: "0.12rem 0.5rem",
+                        borderRadius: "2px",
+                        color: edu.status === "ACTIVE" ? GOLD : GOLD_DIM,
+                        background: edu.status === "ACTIVE" ? "rgba(201,168,76,0.1)" : "rgba(201,168,76,0.05)",
+                        border: `1px solid ${edu.status === "ACTIVE" ? "rgba(201,168,76,0.28)" : "rgba(201,168,76,0.12)"}`,
+                        flexShrink: 0,
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "4px",
                       }}
                     >
                       {edu.status === "ACTIVE" && (
                         <motion.span
-                          className="inline-block w-1.5 h-1.5 rounded-full mr-1"
-                          style={{ background: "#10b981" }}
+                          className="inline-block w-1.5 h-1.5 rounded-full"
+                          style={{ background: GOLD }}
                           animate={{ opacity: [1, 0.3, 1] }}
-                          transition={{ duration: 1.5, repeat: Infinity }}
+                          transition={{ duration: 1.6, repeat: Infinity }}
                         />
                       )}
                       {edu.status}
                     </span>
                   </div>
 
-                  <p className="font-grotesk text-sm font-semibold mt-1" style={{ color: "#06b6d4" }}>
+                  <p
+                    style={{
+                      fontFamily: "'Inter', sans-serif",
+                      fontSize: "0.875rem",
+                      fontWeight: 600,
+                      marginTop: "0.25rem",
+                      color: GOLD,
+                    }}
+                  >
                     {edu.institution}
                   </p>
 
                   <div className="flex gap-3 mt-1 flex-wrap">
-                    <span className="font-mono text-xs" style={{ color: "rgba(200,230,255,0.35)" }}>
+                    <span
+                      style={{
+                        fontFamily: "'IBM Plex Mono', monospace",
+                        fontSize: "0.7rem",
+                        color: "rgba(228,221,211,0.32)",
+                      }}
+                    >
                       {edu.location}
                     </span>
-                    <span style={{ color: "rgba(6,182,212,0.2)" }}>·</span>
-                    <span className="font-mono text-xs" style={{ color: "rgba(200,230,255,0.35)" }}>
+                    <span style={{ color: "rgba(201,168,76,0.2)" }}>·</span>
+                    <span
+                      style={{
+                        fontFamily: "'IBM Plex Mono', monospace",
+                        fontSize: "0.7rem",
+                        color: "rgba(228,221,211,0.32)",
+                      }}
+                    >
                       {edu.period}
                     </span>
                   </div>
 
                   <ul className="mt-3 space-y-1.5">
                     {edu.highlights.map((h, i) => (
-                      <li key={i} className="flex items-start gap-2 font-inter text-sm leading-relaxed"
-                          style={{ color: "rgba(200,230,255,0.5)" }}>
-                        <span className="mt-1.5 w-1 h-1 rounded-full flex-shrink-0" style={{ background: "#06b6d4" }} />
+                      <li
+                        key={i}
+                        className="flex items-start gap-2"
+                        style={{
+                          fontFamily: "'Inter', sans-serif",
+                          fontSize: "0.875rem",
+                          lineHeight: "1.6",
+                          color: STEEL,
+                        }}
+                      >
+                        <span
+                          className="mt-2 w-1 h-1 rounded-full flex-shrink-0"
+                          style={{ background: GOLD_DIM }}
+                        />
                         {h}
                       </li>
                     ))}
