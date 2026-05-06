@@ -136,9 +136,15 @@ a {
   border: 2px solid #05070b;
 }
 
-/* Smooth scrolling for horizontal scroll containers */
+/* Hide scrollbar for horizontal scroll containers (skills section) */
 .snap-x {
   scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.snap-x::-webkit-scrollbar {
+  display: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
