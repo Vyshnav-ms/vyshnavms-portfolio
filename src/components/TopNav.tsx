@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { FiMenu } from 'react-icons/fi'
 import MobileNavDrawer from './MobileNavDrawer'
 
-const navItems = ['about', 'skills', 'experience', 'education', 'projects', 'contact']
+const navItems = ['about', 'skills', 'experience', 'education', 'projects']
 
 const TopNav = () => {
   const [active, setActive] = useState('hero')

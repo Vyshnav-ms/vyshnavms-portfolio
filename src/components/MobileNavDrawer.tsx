@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 import type { Dispatch, SetStateAction } from 'react'
 import { FiX } from 'react-icons/fi'
 
-const navItems = ['about', 'skills', 'experience', 'education', 'projects', 'contact']
+const navItems = ['about', 'skills', 'experience', 'education', 'projects']
 
 interface MobileNavDrawerProps {
   isOpen: boolean
