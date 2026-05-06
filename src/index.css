@@ -118,6 +118,7 @@ a {
 
 ::-webkit-scrollbar {
   width: 10px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -128,6 +129,16 @@ a {
   background: linear-gradient(#67e8f9, #d946ef);
   border: 3px solid #05070b;
   border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:horizontal {
+  height: 6px;
+  border: 2px solid #05070b;
+}
+
+/* Smooth scrolling for horizontal scroll containers */
+.snap-x {
+  scroll-behavior: smooth;
 }
 
 @media (prefers-reduced-motion: reduce) {
