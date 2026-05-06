@@ -2,627 +2,141 @@
 @tailwind components;
 @tailwind utilities;
 
-/* =============================================
-   ✦ FORGED STEEL — Classic Metallic Design System
-   Premium brushed metal · burnished gold · carbon black
-   ============================================= */
-
-@layer base {
-  :root {
-    /* ── Core palette — Carbon & Platinum ── */
-    --background: 0 0% 6%;           /* #0f0f0f matte carbon */
-    --surface: 0 0% 9%;              /* #171717 brushed steel base */
-    --surface-2: 0 0% 12%;          /* #1e1e1e raised panel */
-    --surface-3: 0 0% 15%;          /* #262626 upper tier */
-
-    --foreground: 36 15% 88%;        /* #e4ddd3 warm platinum */
-    --foreground-2: 30 8% 62%;       /* #a09890 polished silver */
-    --foreground-3: 30 5% 40%;       /* #686460 dim steel */
-
-    /* ── Gold accent palette ── */
-    --primary: 42 65% 54%;           /* #c9a84c burnished gold */
-    --primary-light: 45 75% 65%;     /* #e0bc6a liquid gold */
-    --primary-foreground: 0 0% 8%;
-    --primary-dim: 42 65% 54% / 0.12;
-
-    /* ── Steel secondary ── */
-    --secondary: 220 12% 40%;        /* #5f677a steel blue-grey */
-    --secondary-foreground: 36 15% 88%;
-
-    /* ── Accent (warm ember) ── */
-    --accent: 24 55% 42%;            /* #a35f2e burnished copper */
-    --accent-foreground: 36 15% 88%;
-
-    /* ── Borders ── */
-    --border: 42 30% 20%;            /* dark gold engraving */
-    --border-gold: 42 65% 54%;
-    --border-subtle: 0 0% 100% / 0.06;
-
-    /* ── Semantic ── */
-    --card: 0 0% 9%;
-    --card-foreground: 36 15% 88%;
-    --popover: 0 0% 9%;
-    --popover-foreground: 36 15% 88%;
-
-    --muted: 0 0% 12%;
-    --muted-foreground: 30 5% 45%;
-    --destructive: 0 65% 55%;
-    --destructive-foreground: 0 0% 100%;
-
-    --input: 0 0% 12%;
-    --ring: 42 65% 54%;
-    --radius: 0.4rem;
-  }
+:root {
+  color-scheme: dark;
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* =============================================
-   Base Styles
-   ============================================= */
-
-@layer base {
-  * { @apply border-border; box-sizing: border-box; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background-color: #0f0f0f;
-    color: #e4ddd3;
-    font-family: 'Inter', system-ui, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    line-height: 1.6;
-    overflow-x: hidden;
-  }
-
-  ::selection {
-    background: rgba(201, 168, 76, 0.22);
-    color: #e8c96a;
-  }
-
-  h1, h2, h3, h4 {
-    font-family: 'Cormorant Garamond', 'Georgia', serif;
-    letter-spacing: -0.01em;
-    font-weight: 700;
-  }
+* {
+  box-sizing: border-box;
 }
 
-/* =============================================
-   Scrollbar — Polished Steel
-   ============================================= */
-
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: #0f0f0f; }
-::-webkit-scrollbar-thumb {
-  background: rgba(201, 168, 76, 0.35);
-  border-radius: 10px;
-}
-::-webkit-scrollbar-thumb:hover { background: rgba(201, 168, 76, 0.6); }
-
-/* =============================================
-   Background Textures
-   ============================================= */
-
-/* Subtle cross-hatch — engraved metal */
-.metal-bg {
-  background-color: #0f0f0f;
-  background-image:
-    linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
-  background-size: 80px 80px;
+html {
+  scroll-behavior: smooth;
+  background: #030406;
 }
 
-/* Diagonal brushed metal sheen */
-.brushed-bg {
-  background-color: #141414;
-  background-image: repeating-linear-gradient(
-    135deg,
-    transparent,
-    transparent 2px,
-    rgba(255,255,255,0.008) 2px,
-    rgba(255,255,255,0.008) 4px
-  );
-}
-
-/* Gold grain texture */
-.gold-grain {
-  position: relative;
-}
-.gold-grain::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-  opacity: 0.4;
-  pointer-events: none;
-  border-radius: inherit;
-}
-
-/* =============================================
-   Keyframes
-   ============================================= */
-
-@keyframes float-y {
-  0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(-10px); }
-}
-
-@keyframes blink-cursor {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0; }
-}
-
-@keyframes gradient-shift {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-@keyframes metal-shimmer {
-  0%   { background-position: -200% center; }
-  100% { background-position: 200% center; }
-}
-
-@keyframes gold-pulse {
-  0%, 100% { box-shadow: 0 0 0px rgba(201,168,76,0); }
-  50%       { box-shadow: 0 0 18px rgba(201,168,76,0.2), 0 0 36px rgba(201,168,76,0.08); }
-}
-
-@keyframes ember-glow {
-  0%, 100% { opacity: 0.6; }
-  50%       { opacity: 1; }
-}
-
-@keyframes engrave-in {
-  from { width: 0; }
-  to   { width: 100%; }
-}
-
-@keyframes fade-slide-up {
-  from { opacity: 0; transform: translateY(16px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* =============================================
-   Cards — Brushed Steel & Frosted Panel
-   ============================================= */
-
-.card-metal {
-  background: linear-gradient(
-    135deg,
-    rgba(255,255,255,0.04) 0%,
-    rgba(20,20,20,0.95) 40%,
-    rgba(15,15,15,0.98) 100%
-  );
-  border: 1px solid rgba(201,168,76,0.14);
-  border-radius: var(--radius);
-  position: relative;
-  overflow: hidden;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
-}
-
-.card-metal::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    135deg,
-    rgba(201,168,76,0.04) 0%,
-    transparent 50%
-  );
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
-}
-
-.card-metal:hover {
-  border-color: rgba(201,168,76,0.32);
-  box-shadow: 0 0 24px rgba(201,168,76,0.08), 0 8px 32px rgba(0,0,0,0.6);
-  transform: translateY(-3px);
-}
-
-.card-metal:hover::before { opacity: 1; }
-
-/* Frosted glass card */
-.card-frosted {
-  background: rgba(22,22,22,0.85);
-  border: 1px solid rgba(255,255,255,0.07);
-  border-top: 1px solid rgba(255,255,255,0.12);
-  border-radius: var(--radius);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.25s ease;
-}
-
-.card-frosted:hover {
-  border-color: rgba(201,168,76,0.25);
-  box-shadow: 0 0 20px rgba(201,168,76,0.07), 0 4px 24px rgba(0,0,0,0.5);
-  transform: translateY(-2px);
-}
-
-/* =============================================
-   Engraved Decorations
-   ============================================= */
-
-/* Double gold hairline corners */
-.engraved-corners {
-  position: relative;
-}
-.engraved-corners::before,
-.engraved-corners::after {
-  content: '';
-  position: absolute;
-  width: 16px;
-  height: 16px;
-  border-color: rgba(201,168,76,0.45);
-  border-style: solid;
-}
-.engraved-corners::before {
-  top: 0; left: 0;
-  border-width: 1px 0 0 1px;
-}
-.engraved-corners::after {
-  bottom: 0; right: 0;
-  border-width: 0 1px 1px 0;
-}
-
-/* =============================================
-   Buttons — Forged Metal
-   ============================================= */
-
-/* Primary: burnished gold */
-.btn-gold {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.65rem 1.75rem;
-  background: linear-gradient(135deg, #b8943e, #c9a84c, #d4b55a, #c9a84c);
-  background-size: 200% 100%;
-  color: #0f0f0f;
-  border-radius: var(--radius);
-  font-family: 'Barlow Condensed', 'Inter', sans-serif;
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  border: 1px solid rgba(201,168,76,0.7);
-  transition: all 0.3s ease;
-  cursor: pointer;
-  text-decoration: none;
-  position: relative;
-  overflow: hidden;
-}
-
-.btn-gold::before {
-  content: '';
-  position: absolute;
-  top: 0; left: -100%; right: 0; bottom: 0;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
-  transition: left 0.5s ease;
-}
-
-.btn-gold:hover {
-  background-position: right center;
-  box-shadow: 0 4px 20px rgba(201,168,76,0.35), 0 1px 0 rgba(255,255,255,0.15) inset;
-  transform: translateY(-1px);
-}
-.btn-gold:hover::before { left: 100%; }
-.btn-gold:active { transform: translateY(0); }
-
-/* Secondary: brushed steel */
-.btn-steel {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.65rem 1.75rem;
-  background: transparent;
-  color: #c9a84c;
-  border-radius: var(--radius);
-  font-family: 'Barlow Condensed', 'Inter', sans-serif;
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  border: 1px solid rgba(201,168,76,0.35);
-  transition: all 0.25s ease;
-  cursor: pointer;
-  text-decoration: none;
-  position: relative;
-}
-
-.btn-steel::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(201,168,76,0.06);
-  opacity: 0;
-  transition: opacity 0.25s;
-  border-radius: inherit;
-}
-
-.btn-steel:hover {
-  border-color: rgba(201,168,76,0.65);
-  color: #dbb95e;
-  box-shadow: 0 0 14px rgba(201,168,76,0.15);
-}
-.btn-steel:hover::before { opacity: 1; }
-
-/* Alias for backward compat */
-.btn-primary { @apply btn-gold; }
-.btn-cyber { @apply btn-steel; }
-.btn-secondary { @apply btn-steel; }
-
-/* =============================================
-   Sections & Layout
-   ============================================= */
-
-.section-padding {
-  padding-top: 6rem;
-  padding-bottom: 6rem;
-}
-
-@media (max-width: 640px) {
-  .section-padding {
-    padding-top: 4rem;
-    padding-bottom: 4rem;
-  }
-}
-
-.container-narrow {
-  max-width: 680px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 1.25rem;
-  padding-right: 1.25rem;
-}
-
-.container-wide {
-  max-width: 1100px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 1.25rem;
-  padding-right: 1.25rem;
-}
-
-/* =============================================
-   Tags / Chips — Engraved
-   ============================================= */
-
-.tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  padding: 0.28rem 0.72rem;
-  background: rgba(201,168,76,0.07);
-  color: #c9a84c;
-  border: 1px solid rgba(201,168,76,0.2);
-  border-radius: 2px;
-  font-size: 0.7rem;
-  font-weight: 600;
-  font-family: 'IBM Plex Mono', 'Courier New', monospace;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  transition: all 0.2s;
-}
-
-.tag:hover {
-  background: rgba(201,168,76,0.13);
-  border-color: rgba(201,168,76,0.42);
-  box-shadow: 0 0 8px rgba(201,168,76,0.14);
-}
-
-.tag-neutral {
-  background: rgba(30,30,30,0.9);
-  color: rgba(228,221,211,0.6);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 2px;
-  font-size: 0.7rem;
-  font-weight: 500;
-  padding: 0.22rem 0.6rem;
-  font-family: 'IBM Plex Mono', monospace;
-}
-
-.tech-tag {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.25rem 0.65rem;
-  background: rgba(201,168,76,0.06);
-  color: rgba(201,168,76,0.75);
-  border: 1px solid rgba(201,168,76,0.16);
-  border-radius: 2px;
-  font-size: 0.68rem;
-  font-family: 'IBM Plex Mono', monospace;
-  letter-spacing: 0.04em;
-  transition: all 0.2s;
-}
-
-.tech-tag:hover {
-  background: rgba(201,168,76,0.11);
-  border-color: rgba(201,168,76,0.35);
-}
-
-/* =============================================
-   Gold Text Effects
-   ============================================= */
-
-.gold-text {
-  color: #c9a84c;
-}
-
-.shimmer-text {
-  background: linear-gradient(90deg, #a07830, #e8c96a, #c9a84c, #e8c96a, #a07830);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: metal-shimmer 4s linear infinite;
-}
-
-.platinum-text {
-  background: linear-gradient(135deg, #d0c8be, #e8e4dc, #a09890, #e8e4dc);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* =============================================
-   Timeline — Engraved
-   ============================================= */
-
-.timeline-dot {
-  position: absolute;
-  left: -5px;
-  top: 6px;
-  width: 11px;
-  height: 11px;
-  border-radius: 50%;
-  background: #0f0f0f;
-  border: 2px solid #c9a84c;
-  box-shadow: 0 0 6px rgba(201,168,76,0.4);
-}
-
-/* =============================================
-   Dividers — Gold Hairlines
-   ============================================= */
-
-.gold-rule {
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(201,168,76,0.4), transparent);
-}
-
-.gold-rule-double {
-  position: relative;
-  height: 3px;
-  background: transparent;
-}
-.gold-rule-double::before,
-.gold-rule-double::after {
-  content: '';
-  position: absolute;
-  left: 0; right: 0;
-  height: 1px;
-}
-.gold-rule-double::before {
-  top: 0;
-  background: linear-gradient(90deg, transparent, rgba(201,168,76,0.5), transparent);
-}
-.gold-rule-double::after {
-  bottom: 0;
-  background: linear-gradient(90deg, transparent, rgba(201,168,76,0.2), transparent);
-}
-
-/* Old compat */
-.cyber-divider {
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(201,168,76,0.3), transparent);
-}
-
-/* =============================================
-   HUD Stats — Metal Plates
-   ============================================= */
-
-.hud-stat {
-  background: rgba(201,168,76,0.04);
-  border: 1px solid rgba(201,168,76,0.14);
-  border-radius: var(--radius);
-  padding: 0.75rem 1.25rem;
-  position: relative;
-}
-.hud-stat::before,
-.hud-stat::after {
-  content: '';
-  position: absolute;
-  width: 6px; height: 6px;
-  border-color: rgba(201,168,76,0.5);
-  border-style: solid;
-}
-.hud-stat::before { top: -1px; left: -1px; border-width: 1px 0 0 1px; }
-.hud-stat::after  { bottom: -1px; right: -1px; border-width: 0 1px 1px 0; }
-
-/* =============================================
-   Section border
-   ============================================= */
-
-.section-border-b {
-  border-bottom: 1px solid rgba(201,168,76,0.07);
-}
-
-/* =============================================
-   Focus
-   ============================================= */
-
-:focus-visible {
-  outline: 1px solid rgba(201,168,76,0.7);
-  outline-offset: 3px;
-  border-radius: 2px;
-}
-
-/* =============================================
-   Utility — Typography
-   ============================================= */
-
-.font-editorial { font-family: 'Cormorant Garamond', 'Georgia', serif; }
-.font-condensed  { font-family: 'Barlow Condensed', 'Inter', sans-serif; }
-.font-mono-code  { font-family: 'IBM Plex Mono', 'Courier New', monospace; }
-
-/* Legacy compat utilities */
-.font-orbitron   { font-family: 'Barlow Condensed', 'Inter', sans-serif; letter-spacing: 0.05em; }
-.font-inter      { font-family: 'Inter', system-ui, sans-serif; }
-
-/* =============================================
-   Nav active underline — Gold
-   ============================================= */
-
-.nav-link-active::after {
-  content: '';
-  display: block;
-  height: 1px;
-  background: linear-gradient(90deg, #c9a84c, rgba(201,168,76,0.3));
-  margin-top: 2px;
-}
-
-/* =============================================
-   Animated border gradient — Gold spin
-   ============================================= */
-
-@property --angle {
-  syntax: '<angle>';
-  initial-value: 0deg;
-  inherits: false;
-}
-
-@keyframes spin-border {
-  to { --angle: 360deg; }
-}
-
-.animated-border {
-  border: 1px solid transparent;
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  overflow-x: hidden;
   background:
-    linear-gradient(#171717, #171717) padding-box,
-    conic-gradient(from var(--angle), #c9a84c, #6b5a30, #c9a84c) border-box;
-  animation: spin-border 5s linear infinite;
+    radial-gradient(circle at 20% 10%, rgba(103, 232, 249, 0.08), transparent 26rem),
+    radial-gradient(circle at 82% 28%, rgba(217, 70, 239, 0.07), transparent 24rem),
+    #030406;
 }
 
-/* =============================================
-   Orb / ambient glows — Warm ember tones
-   ============================================= */
-
-.orb-gold {
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(201,168,76,0.15) 0%, transparent 70%);
-  filter: blur(50px);
-  animation: float-y 8s ease-in-out infinite;
+body,
+button,
+input,
+textarea {
+  letter-spacing: 0;
 }
 
-.orb-steel {
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(95,103,122,0.12) 0%, transparent 70%);
-  filter: blur(60px);
-  animation: float-y 10s ease-in-out infinite reverse;
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
 }
 
-/* =============================================
-   Bracket corners (legacy compat)
-   ============================================= */
+::selection {
+  background: rgba(103, 232, 249, 0.28);
+  color: #fff;
+}
 
-.bracket-corners { @apply engraved-corners; }
+.hero-stage {
+  background:
+    linear-gradient(115deg, transparent 0 28%, rgba(255, 255, 255, 0.12) 28.2% 28.5%, transparent 28.7% 100%),
+    linear-gradient(72deg, transparent 0 38%, rgba(103, 232, 249, 0.18) 38.2% 38.45%, transparent 38.7% 100%),
+    linear-gradient(155deg, transparent 0 61%, rgba(217, 70, 239, 0.13) 61.2% 61.45%, transparent 61.7% 100%),
+    linear-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
+  background-size:
+    100% 100%,
+    100% 100%,
+    100% 100%,
+    46px 46px,
+    46px 46px;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+    inset 0 -80px 120px rgba(3, 4, 6, 0.86),
+    0 34px 140px rgba(8, 47, 73, 0.32);
+  mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 76%, transparent);
+  transform: perspective(1100px) rotateX(62deg) rotateZ(-7deg);
+  transform-origin: 50% 30%;
+}
+
+.hero-stage::before,
+.hero-stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+
+.hero-stage::before {
+  background: repeating-linear-gradient(
+    90deg,
+    transparent 0 84px,
+    rgba(103, 232, 249, 0.13) 85px,
+    transparent 87px
+  );
+  animation: stage-scan 8s linear infinite;
+}
+
+.hero-stage::after {
+  background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.16), transparent);
+  height: 36%;
+  opacity: 0.36;
+  animation: stage-sweep 6s ease-in-out infinite;
+}
+
+@keyframes stage-scan {
+  from {
+    transform: translateX(-90px);
+  }
+  to {
+    transform: translateX(90px);
+  }
+}
+
+@keyframes stage-sweep {
+  0%,
+  100% {
+    transform: translateY(-35%);
+  }
+  50% {
+    transform: translateY(210%);
+  }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #05070b;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(#67e8f9, #d946ef);
+  border: 3px solid #05070b;
+  border-radius: 999px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

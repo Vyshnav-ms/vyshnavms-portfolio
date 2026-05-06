@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="mark" x1="14" x2="50" y1="12" y2="52" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#67E8F9"/>
+      <stop offset=".5" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#D946EF"/>
+    </linearGradient>
+    <linearGradient id="edge" x1="9" x2="55" y1="8" y2="56" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".9"/>
+      <stop offset="1" stop-color="#67E8F9" stop-opacity=".32"/>
+    </linearGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="2.2" result="blur"/>
+      <feColorMatrix in="blur" values="0 0 0 0 0.4 0 0 0 0 0.91 0 0 0 0 0.98 0 0 0 .65 0"/>
+      <feBlend in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <rect width="64" height="64" rx="18" fill="#05070B"/>
+  <rect x="8.5" y="8.5" width="47" height="47" rx="14.5" fill="none" stroke="url(#edge)"/>
+  <path d="M25 22 15 32l10 10" fill="none" stroke="url(#mark)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)"/>
+  <path d="M39 22 49 32 39 42" fill="none" stroke="url(#mark)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)"/>
+  <path d="M35.5 18 28.5 46" fill="none" stroke="url(#mark)" stroke-width="4.5" stroke-linecap="round" filter="url(#glow)"/>
+</svg>
