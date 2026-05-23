@@ -221,24 +221,41 @@ const ProjectStackCard = ({
   )
 }
 
+const mobileCardVariants = {
+  enter: (direction: number) => ({
+    x: direction > 0 ? '105%' : '-105%',
+    opacity: 0,
+  }),
+  center: {
+    x: 0,
+    opacity: 1,
+  },
+  exit: (direction: number) => ({
+    x: direction > 0 ? '-105%' : '105%',
+    opacity: 0,
+  }),
+}
+
 const ProjectMobileCard = ({
   project,
   index,
-  isActive,
+  direction,
   onOpen,
 }: {
   project: Project
   index: number
-  isActive: boolean
+  direction: number
   onOpen: (project: Project) => void
 }) => {
   return (
     <motion.article
       key={project.title}
-      initial={{ opacity: 0, x: 100 }}
-      animate={isActive ? { opacity: 1, x: 0 } : { opacity: 0, x: -100 }}
-      exit={{ opacity: 0, x: 100 }}
-      transition={{ type: 'spring', stiffness: 400, damping: 40 }}
+      custom={direction}
+      variants={mobileCardVariants}
+      initial="enter"
+      animate="center"
+      exit="exit"
+      transition={{ type: 'spring', stiffness: 380, damping: 36 }}
       className="absolute inset-0 origin-center md:hidden"
     >
       <div className="relative h-full overflow-hidden rounded-[2rem] border border-white/12 bg-[#070910] p-3 shadow-[0_34px_120px_rgba(0,0,0,0.55)]">
@@ -303,14 +320,17 @@ const ProjectStack = ({ onOpen }: { onOpen: (project: Project) => void }) => {
   const activeValue = useTransform(scrollYProgress, [0, 0.2, 0.4, 0.6, 0.8], [0, 1, 2, 3, 4])
   const [activeIndex, setActiveIndex] = useState(0)
   const [manualIndex, setManualIndex] = useState<number | null>(null)
+  const [swipeDirection, setSwipeDirection] = useState(1)
 
   // Swipe handlers for mobile
   const handleSwipeLeft = () => {
+    setSwipeDirection(1) // going forward → exit left, enter from right
     setActiveIndex((prev) => Math.min(prev + 1, projects.length - 1))
     setManualIndex((prev) => (prev !== null ? Math.min(prev + 1, projects.length - 1) : null))
   }
 
   const handleSwipeRight = () => {
+    setSwipeDirection(-1) // going backward → exit right, enter from left
     setActiveIndex((prev) => Math.max(prev - 1, 0))
     setManualIndex((prev) => (prev !== null ? Math.max(prev - 1, 0) : null))
   }
@@ -350,14 +370,14 @@ const ProjectStack = ({ onOpen }: { onOpen: (project: Project) => void }) => {
           {isMobile && (
             <div>
               <div className="relative mx-auto h-[520px] w-full max-w-3xl" ref={swipeRef}>
-                <AnimatePresence mode="wait">
+                <AnimatePresence mode="wait" custom={swipeDirection}>
                   {projects.map((project, index) => (
                     index === activeIndex && (
                       <ProjectMobileCard
                         key={project.title}
                         project={project}
                         index={index}
-                        isActive={true}
+                        direction={swipeDirection}
                         onOpen={onOpen}
                       />
                     )
