@@ -69,7 +69,7 @@ export const projects = [
   {
     title: 'HirePilot AI',
     role: 'Full-Stack AI SaaS Platform',
-    summary: 'AI-powered interview preparation platform that generates personalized questions, checks ATS scores, and delivers career readiness insights using resume and job description analysis.',
+    summary: 'Developed a full-stack AI-powered interview preparation platform that generates personalized technical, HR, project-based, behavioral, and scenario-based interview questions using resume and job description analysis. Implemented an ATS score checker to evaluate resume-to-job-description matching, identify missing skills and keywords, and provide optimization recommendations. Built secure authentication with email verification using Supabase Auth and designed a modern SaaS-style responsive dashboard using Next.js, TypeScript, Tailwind CSS, shadcn/ui, and Groq AI.',
     details:
       'Developed a full-stack AI-powered interview preparation platform generating personalized technical, HR, project-based, behavioral, and scenario-based questions via Groq LLMs. Implemented ATS score checking with resume-to-JD matching, missing skills detection, keyword analysis, and recommendation generation. Built secure authentication and user management with Supabase Auth including email verification. Designed a modern SaaS-style dashboard with protected routes, theme management, and interactive UI components. Integrated AI-powered workflows using Groq for role-specific interview preparation. Developed reusable frontend architecture using Next.js App Router, TypeScript, Tailwind CSS, and shadcn/ui.',
     stack: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Supabase', 'Groq AI', 'Framer Motion', 'shadcn/ui'],
