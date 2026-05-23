@@ -67,6 +67,17 @@ export const skillGroups = [
 
 export const projects = [
   {
+    title: 'HirePilot AI',
+    role: 'Full-Stack AI SaaS Platform',
+    summary: 'AI-powered interview preparation platform that generates personalized questions, checks ATS scores, and delivers career readiness insights using resume and job description analysis.',
+    details:
+      'Developed a full-stack AI-powered interview preparation platform generating personalized technical, HR, project-based, behavioral, and scenario-based questions via Groq LLMs. Implemented ATS score checking with resume-to-JD matching, missing skills detection, keyword analysis, and recommendation generation. Built secure authentication and user management with Supabase Auth including email verification. Designed a modern SaaS-style dashboard with protected routes, theme management, and interactive UI components. Integrated AI-powered workflows using Groq for role-specific interview preparation. Developed reusable frontend architecture using Next.js App Router, TypeScript, Tailwind CSS, and shadcn/ui.',
+    stack: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Supabase', 'Groq AI', 'Framer Motion', 'shadcn/ui'],
+    live: 'https://gethirepilot.vercel.app/',
+    github: 'https://github.com/Vyshnav-ms/hirepilot-ai',
+    color: 'from-indigo-400/30 via-purple-300/15 to-white/5',
+  },
+  {
     title: 'IncubateX',
     role: 'Flutter + Firebase App',
     summary: 'Role-driven business incubation tracker for student startup progress at LEAD College of Management.',

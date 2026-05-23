@@ -300,7 +300,7 @@ const ProjectStack = ({ onOpen }: { onOpen: (project: Project) => void }) => {
   const isMobile = useMediaQuery('(max-width: 767px)')
   const sectionRef = useRef<HTMLElement | null>(null)
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start start', 'end end'] })
-  const activeValue = useTransform(scrollYProgress, [0, 0.24, 0.52, 0.78], [0, 1, 2, 3])
+  const activeValue = useTransform(scrollYProgress, [0, 0.2, 0.4, 0.6, 0.8], [0, 1, 2, 3, 4])
   const [activeIndex, setActiveIndex] = useState(0)
   const [manualIndex, setManualIndex] = useState<number | null>(null)
 
